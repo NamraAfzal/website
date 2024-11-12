@@ -17,6 +17,7 @@
     <main class="container mx-auto mt-28 px-5 flex">
       <% if seller_signed_in? %>
         <p>Welcome, Seller <%= current_seller.company_name %>!</p>
+        <%= link_to 'Log Out', destroy_seller_session_path, data: { turbo_method: :delete }, class: 'text-blue-500 hover:text-blue-700' %>
       <% elsif user_signed_in? %>
         <p>Welcome, <%= current_user.name %>!</p>
       <% end %>
