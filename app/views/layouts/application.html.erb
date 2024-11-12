@@ -15,6 +15,11 @@
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <main class="container mx-auto mt-28 px-5 flex">
+      <% if seller_signed_in? %>
+        <p>Welcome, Seller <%= current_seller.company_name %>!</p>
+      <% elsif user_signed_in? %>
+        <p>Welcome, <%= current_user.name %>!</p>
+      <% end %>
       <% if user_signed_in? %>
         <p>Welcome, <%= current_user.name %>!</p>
         <%= link_to 'Log Out', destroy_user_session_path, data: { turbo_method: :delete }, class: 'text-blue-500 hover:text-blue-700' %>
@@ -26,4 +31,5 @@
     </main>
   </body>
 </html>
+
 
