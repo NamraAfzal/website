@@ -18,8 +18,9 @@
       <% if seller_signed_in? %>
         <p>Welcome, Seller <%= current_seller.company_name %>!</p>
         <%= link_to 'Log Out', destroy_seller_session_path, data: { turbo_method: :delete }, class: 'text-blue-500 hover:text-blue-700' %>
-      <% elsif user_signed_in? %>
-        <p>Welcome, <%= current_user.name %>!</p>
+        <% else %>
+        <%= link_to 'Sign Up', new_seller_registration_path %> |
+        <%= link_to 'Sign In', new_seller_session_path %>
       <% end %>
       <% if user_signed_in? %>
         <p>Welcome, <%= current_user.name %>!</p>
