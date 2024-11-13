@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   namespace :sellers do
-    get 'orders/index'
-    get 'orders/show'
-    get 'products/index'
-    get 'products/new'
-    get 'products/edit'
+    resources :products
+    resources :orders, only: [:index, :show]
     root to: "dashboard#index"
   end
 
@@ -14,8 +11,6 @@ Rails.application.routes.draw do
 
   devise_for :sellers, path: 'sellers'
   devise_for :users, path: 'users'
-  resources :products
-  resources :orders, only: [:index, :show]
   get '/seller_dashboard', to: 'sellers/dashboard#index', as: 'seller_dashboard'
 
 
