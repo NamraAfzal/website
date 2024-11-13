@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
     if resource.is_a?(Seller)
       seller_dashboard_path
     else
-      root_path # or wherever you want to redirect regular users
+      root_path
     end
   end
 
@@ -21,9 +21,9 @@ class ApplicationController < ActionController::Base
 
   def layout_by_resource
     if devise_controller? && resource_name == :seller
-      "seller" # uses app/views/layouts/seller.html.erb
+      "seller"
     else
-      "user"   # uses app/views/layouts/user.html.erb
+      "user"
     end
   end
 end
