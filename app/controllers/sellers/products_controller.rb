@@ -3,11 +3,11 @@ module Sellers
     before_action :authenticate_seller!
     before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-
     def new
       @product = Product.new
       @categories = Category.all
     end
+
     def index
       @products = current_seller.products
     end
