@@ -1,1 +1,29 @@
-<h1>Welcome to Seller dashboard</h1>
+<h1>Your Products</h1>
+
+<table class="min-w-full bg-white">
+  <thead>
+    <tr>
+      <th class="text-left py-3 px-4">Name</th>
+      <th class="text-left py-3 px-4">Category</th>
+      <th class="text-left py-3 px-4">Price</th>
+      <th class="text-left py-3 px-4">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td class="py-3 px-4"><%= product.name %></td>
+        <td class="py-3 px-4"><%= product.category.name if product.category %></td>
+        <td class="py-3 px-4">$<%= product.price %></td>
+        <td class="py-3 px-4">
+          <%= link_to 'Show', sellers_product_path(product), class: "text-blue-500 hover:underline" %> |
+          <%= link_to 'Edit', edit_sellers_product_path(product), class: "text-yellow-500 hover:underline" %> |
+          <%= link_to 'Delete', sellers_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-500 hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add New Product', new_sellers_product_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-4 rounded" %>
+
