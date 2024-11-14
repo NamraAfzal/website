@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'products/index'
   namespace :sellers do
     resources :products
     resources :orders, only: [:index, :show]
@@ -8,6 +9,7 @@ Rails.application.routes.draw do
   namespace :users do
     root to: "dashboard#index"
   end
+  resources :products, only: [:index, :show]
 
   devise_for :sellers, path: 'sellers'
   devise_for :users, path: 'users'
