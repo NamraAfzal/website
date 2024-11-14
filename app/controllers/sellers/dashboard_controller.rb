@@ -2,6 +2,9 @@ module Sellers
   class DashboardController < ApplicationController
     before_action :authenticate_seller!
 
-    def index; end
+    def index
+      @products = current_seller.products
+    end
   end
 end
+
