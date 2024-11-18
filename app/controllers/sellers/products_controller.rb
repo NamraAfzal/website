@@ -1,15 +1,14 @@
 module Sellers
   class ProductsController < ApplicationController
     before_action :authenticate_seller!
-    before_action :set_product, only: [:show, :edit, :update, :destroy]
-
-    def new
-      @product = Product.new
-      @categories = Category.all
-    end
+    before_action :set_product, only: %i[show edit update destroy]
 
     def index
       @products = current_seller.products
+    end
+
+    def new
+      @product = Product.new
     end
 
     def show; end
@@ -17,7 +16,7 @@ module Sellers
     def create
       @product = current_seller.products.build(product_params)
       if @product.save
-        redirect_to seller_dashboard_path, notice: "Product created successfully."
+        redirect_to sellers_products_path, notice: "Product created successfully."
       else
         render :new
       end

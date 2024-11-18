@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'products/index'
+  resources :products, only: [:index]
   namespace :sellers do
     resources :products
     resources :orders, only: [:index, :show]
@@ -9,12 +9,14 @@ Rails.application.routes.draw do
   namespace :users do
     root to: "dashboard#index"
   end
-  resources :products, only: [:index, :show]
+  resources :carts do
+    post 'add_to_cart', on: :member
+    delete 'remove_from_cart', on: :member
+  end
 
   devise_for :sellers, path: 'sellers'
   devise_for :users, path: 'users'
   get '/seller_dashboard', to: 'sellers/dashboard#index', as: 'seller_dashboard'
-
 
   root to: "home#index"
 end
