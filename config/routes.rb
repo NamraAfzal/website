@@ -1,20 +1,23 @@
 Rails.application.routes.draw do
-  get 'products/index'
+  resources :products, only: [:index]
   namespace :sellers do
     resources :products
     resources :orders, only: [:index, :show]
-    root to: "dashboard#index"
   end
 
   namespace :users do
     root to: "dashboard#index"
   end
-  resources :products, only: [:index, :show]
 
   devise_for :sellers, path: 'sellers'
   devise_for :users, path: 'users'
-  get '/seller_dashboard', to: 'sellers/dashboard#index', as: 'seller_dashboard'
 
+  resources :carts, only: [:show] do
+    member do
+      delete 'remove_from_cart/:product_id', to: 'carts#remove_from_cart', as: 'remove_from_cart'
+    end
+    post 'add_to_cart/:product_id', to: 'carts#add_to_cart', as: 'add_to_cart'
+  end
 
   root to: "home#index"
 end
