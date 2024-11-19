@@ -28,7 +28,7 @@
             <%= link_to 'Log In', new_user_session_path, class: 'text-white hover:text-gray-400' %>
           <% end %>
           <% if user_signed_in? %>
-              <%= link_to 'My Cart', carts_path, class: 'text-white hover:text-gray-400' %>
+              <%= link_to 'My Cart', orders_path, class: 'text-white hover:text-gray-400' %>
           <% end %>
         </div>
       </div>

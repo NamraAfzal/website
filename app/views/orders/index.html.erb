@@ -1,0 +1,14 @@
+<h1>Your Orders</h1>
+
+<% @orders.each do |order| %>
+  <div>
+    <h2>Order #<%= order.id %> - Status: <%= order.status.capitalize %></h2>
+    <ul>
+      <% order.order_items.each do |item| %>
+        <li>
+          <%= item.product.name %> - Quantity: <%= item.quantity %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
