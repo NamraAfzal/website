@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   namespace :users do
     root to: "dashboard#index"
   end
-  resources :carts do
+  resources :carts, only: [:index, :show] do
     post 'add_to_cart', on: :member
     delete 'remove_from_cart', on: :member
   end
