@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_one :cart, dependent: :destroy
+  has_many :orders, dependent: :destroy
   after_create :initialize_cart
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
