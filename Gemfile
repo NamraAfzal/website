@@ -44,6 +44,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 # Gemfile
 gem 'devise'
 gem 'kaminari'
+gem 'pry-byebug'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false

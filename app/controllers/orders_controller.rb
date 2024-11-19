@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[seller_orders]
+  before_action :authorize_seller, only: :seller_orders
   before_action :set_cart, only: %i[show add_to_cart remove_from_cart place_order]
   before_action :find_product, only: %i[add_to_cart remove_from_cart]
 
@@ -34,6 +35,9 @@ class OrdersController < ApplicationController
       redirect_to order_path(@cart), alert: 'There was an error placing the order.'
     end
   end
+  def seller_orders
+    @orders = Order.joins(:order_items).where(order_items: { product_id: current_user.orders.select(:id) }).where(status: :placed).distinct
+  end
 
   private
 
@@ -44,5 +48,11 @@ class OrdersController < ApplicationController
 
   def find_product
     @product = Product.find(params[:product_id])
+  end
+
+  def authorize_seller
+    unless current_seller
+      redirect_to root_path, alert: "You don't have permission to view this page."
+    end
   end
 end
