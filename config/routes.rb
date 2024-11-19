@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :products, only: :index
   namespace :sellers do
     resources :products
-    resources :orders, only: %i[index show]
     root to: "dashboard#index"
   end
 
@@ -11,6 +10,9 @@ Rails.application.routes.draw do
   end
 
   resources :orders, only: %i[index show] do
+    collection do
+      get :seller_orders
+    end
     member do
       post :add_to_cart
       delete :remove_from_cart
