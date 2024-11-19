@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  helper_method :current_cart
 
   layout :layout_by_resource
 
@@ -27,9 +28,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def set_cart
-    if user_signed_in?
-      @cart = current_user.cart || Cart.create(user: current_user)
-    end
+  def current_cart
+    @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
   end
+
 end
