@@ -30,6 +30,9 @@
           <% if user_signed_in? %>
               <%= link_to 'My Cart', orders_path, class: 'text-white hover:text-gray-400' %>
           <% end %>
+          <% if seller_signed_in? %>
+              <%= link_to 'Orders', seller_orders_orders_path, class: 'text-white hover:text-gray-400' %>
+          <% end %>
         </div>
       </div>
       <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">

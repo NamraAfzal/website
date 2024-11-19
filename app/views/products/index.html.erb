@@ -18,7 +18,7 @@
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">$<%= product.price %></td>
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
               <% if user_signed_in? %>
-                      <%= button_to 'Add to Cart', add_to_cart_order_path(@current_cart, product_id: product.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+                      <%= button_to 'Add to Cart', add_to_cart_order_path(current_cart, product_id: product.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
               <% else %>
                 <p class="text-red-500">Login to add to cart</p>
               <% end %> 
