@@ -26,4 +26,10 @@ class ApplicationController < ActionController::Base
       "user"
     end
   end
+
+  def set_cart
+    if user_signed_in?
+      @cart = current_user.cart || Cart.create(user: current_user)
+    end
+  end
 end

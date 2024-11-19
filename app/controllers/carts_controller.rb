@@ -1,8 +1,12 @@
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
-  def show
+  def index
     @cart = current_user.cart
+  end
+
+  def show
+    @cart = current_user.cart || Cart.create(user: current_user)
   end
 
   def add_to_cart
@@ -39,5 +43,6 @@ class CartsController < ApplicationController
       format.turbo_stream
       format.html { redirect_to cart_path(@cart) }
     end
+
   end
 end
