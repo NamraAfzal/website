@@ -1,0 +1,24 @@
+<h1>Your Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Product</th>
+      <th>Quantity</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <% order.order_items.each do |item| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= item.product.name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= order.status %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
