@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!, except: %i[seller_orders]
+  before_action :authenticate_user!, except: :seller_orders
   before_action :authorize_seller, only: :seller_orders
   before_action :set_cart, only: %i[show add_to_cart remove_from_cart place_order]
   before_action :find_product, only: %i[add_to_cart remove_from_cart]
