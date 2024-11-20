@@ -23,7 +23,7 @@ module Sellers
 
     def set_order
       @order = Order.joins(:order_items)
-                    .where(order_items: { product_id: current_seller.products.pluck(:id) })
+                    .where(order_items: { order_id: current_seller.products.pluck(:id) })
                     .find(params[:id])
     rescue ActiveRecord::RecordNotFound
       flash[:error] = "Order not found."

@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :set_cart, only: %i[show add_to_cart remove_from_cart place_order]
+  before_action :current_cart, only: %i[show add_to_cart remove_from_cart place_order]
   before_action :find_product, only: %i[add_to_cart remove_from_cart]
 
   def index
@@ -11,9 +11,13 @@ class OrdersController < ApplicationController
   def add_to_cart
     order_item = @cart.order_items.find_or_initialize_by(product_id: @product.id)
     order_item.increment(:quantity)
-    order_item.save
 
-    redirect_to order_path(@cart), notice: 'Product added to cart!'
+    if order_item.save
+      redirect_to order_path(@cart), notice: 'Product added to cart!'
+    else
+      redirect_to product_path(@product), alert: "Failed to add product to cart: #{order_item.errors.full_messages.to_sentence}"
+    end
+
   end
 
   def remove_from_cart
@@ -36,7 +40,7 @@ class OrdersController < ApplicationController
 
   private
 
-  def set_cart
+  def current_cart
     @cart = current_user.orders.find_by(status: :cart)
     @cart ||= current_user.orders.create(status: :cart)
   end

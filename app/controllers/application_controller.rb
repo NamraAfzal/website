@@ -23,10 +23,6 @@ class ApplicationController < ActionController::Base
     @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
   end
 
-  def set_cart
-    @current_cart = current_user.orders.find_or_create_by(status: :cart)
-  end
-
   private
 
   def layout_by_resource
