@@ -31,6 +31,7 @@
               <%= link_to 'My Cart', orders_path, class: 'text-white hover:text-gray-400' %>
           <% end %>
           <% if seller_signed_in? %>
+              <!-- <%= link_to 'Orders', seller_orders_orders_path, class: 'text-white hover:text-gray-400' %> -->
               <%= link_to 'Orders', seller_orders_orders_path, class: 'text-white hover:text-gray-400' %>
           <% end %>
         </div>
