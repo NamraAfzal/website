@@ -24,34 +24,3 @@
     <% end %>
   </tbody>
 </table>
-<h1>Your Orders</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Order ID</th>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Status</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <% order.order_items.each do |item| %>
-        <tr>
-          <td><%= order.id %></td>
-          <td><%= item.product.name %></td>
-          <td><%= item.quantity %></td>
-          <td>
-            <%= form_with(model: order, url: sellers_order_path(order), method: :patch, local: true) do |form| %>
-              <%= form.select :status, options_for_select([['Confirmed', 2], ['Shipped', 3]], order.status), {}, class: 'form-select' %>
-              <%= form.submit 'Update', class: 'btn btn-primary' %>
-            <% end %>
-          </td>
-          <td><%= order.status %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
