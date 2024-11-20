@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :authenticate_user!
+  helper_method :current_cart
 
   layout :layout_by_resource
 
@@ -11,10 +13,14 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Seller)
-      seller_dashboard_path
+      sellers_products_path
     else
-      root_path
+      products_path
     end
+  end
+
+  def current_cart
+    @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
   end
 
   private
@@ -26,4 +32,5 @@ class ApplicationController < ActionController::Base
       "user"
     end
   end
+
 end

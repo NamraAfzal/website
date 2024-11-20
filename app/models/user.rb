@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  has_many :orders, dependent: :destroy
+  after_create :initialize_cart
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
@@ -13,4 +13,5 @@ class User < ApplicationRecord
         errors.add :password, 'must be 10 characters or less and include at least one special character (!@#$%^&*).'
       end
   end
+
 end

@@ -1,6 +1,5 @@
 <h1 class="text-2xl font-bold mb-4">Products</h1>
 
-<% if @products.present? %>
   <div class="overflow-x-auto">
     <table class="min-w-full bg-white border border-gray-200">
       <thead>
@@ -8,6 +7,7 @@
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Name</th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Category</th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Price</th>
+          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -16,12 +16,17 @@
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium"><%= product.name %></td>
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800"><%= product.category&.name || 'N/A' %></td>
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">$<%= product.price %></td>
+            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
+              <% if user_signed_in? %>
+                      <%= button_to 'Add to Cart', add_to_cart_order_path(current_cart, product_id: product.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+              <% else %>
+                <p class="text-red-500">Login to add to cart</p>
+              <% end %> 
+            </td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-<% else %>
-  <p class="text-gray-600 mt-4">No products available.</p>
-<% end %>
+
 <%= paginate @products %>
