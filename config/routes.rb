@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   namespace :sellers do
     resources :products
     root to: "dashboard#index"
-    resources :orders, only: %i[index show] do
+    resources :orders, only: %i[index show update] do
       collection do
         get :seller_orders
       end
