@@ -1,15 +1,53 @@
-<h1>Your Cart</h1>
+<div class="container mx-auto p-6">
+  <h1 class="text-2xl font-bold mb-4">Your Cart</h1>
 
-<% if @cart.order_items.any? %>
-  <ul>
-    <% @cart.order_items.each do |item| %>
-      <li>
-        <%= item.product.name %> - Quantity: <%= item.quantity %>
-        <%= button_to 'Remove One', remove_from_cart_order_path(@cart, product_id: item.product.id), method: :delete %>
-      </li>
-    <% end %>
-  </ul>
-  <%= button_to 'Place Order', place_order_order_path(@cart), method: :patch, class: 'btn btn-primary' %>
-<% else %>
-  <p>Your cart is empty.</p>
-<% end %>
+  <% if @cart.order_items.any? %>
+    <div class="bg-white shadow-md rounded-lg p-4">
+      <table class="table-auto w-full text-left">
+        <thead>
+          <tr class="text-gray-700 uppercase text-sm">
+            <th class="px-4 py-2">Product</th>
+            <th class="px-4 py-2">Price</th>
+            <th class="px-4 py-2">Quantity</th>
+            <th class="px-4 py-2">Subtotal</th>
+            <th class="px-4 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% total_price = 0 %>
+          <% @cart.order_items.each do |item| %>
+            <% subtotal = item.product.price * item.quantity %>
+            <% total_price += subtotal %>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-2"><%= item.product.name %></td>
+              <td class="px-4 py-2"><%= number_to_currency(item.product.price) %></td>
+              <td class="px-4 py-2"><%= item.quantity %></td>
+              <td class="px-4 py-2"><%= number_to_currency(subtotal) %></td>
+              <td class="px-4 py-2">
+                <%= button_to 'Remove One', remove_from_cart_order_path(@cart, product_id: item.product.id), 
+                              method: :delete, class: 'text-red-500 hover:underline' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <div class="mt-4">
+        <p class="text-lg font-semibold">Total: <%= number_to_currency(total_price) %></p>
+      </div>
+
+      <div class="mt-4">
+        <%= form_with model: @cart, url: place_order_order_path(@cart), method: :patch, local: true do |f| %>
+          <div class="mb-4">
+            <%= f.label :shipping_address, 'Shipping Address', class: 'block text-sm font-medium text-gray-700' %>
+            <%= f.text_area :shipping_address, class: 'mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500', placeholder: 'Enter your shipping address' %>
+          </div>
+
+          <%= f.submit 'Place Order', class: 'bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600' %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <p class="text-gray-500 text-lg">Your cart is empty.</p>
+  <% end %>
+</div>
