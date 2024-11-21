@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   resources :products, only: :index
+  resources :categories, only: :show
   namespace :sellers do
     resources :products
     root to: "dashboard#index"
     resources :orders, only: %i[index show update] do
       collection do
-        get :seller_orders
+        get :show
       end
     end
   end
