@@ -10,14 +10,16 @@ class OrdersController < ApplicationController
 
   def add_to_cart
     order_item = @cart.order_items.find_or_initialize_by(product_id: @product.id)
-    order_item.increment(:quantity)
-
+    if order_item.new_record?
+      order_item.quantity = 1
+    else
+      order_item.increment(:quantity)
+    end
     if order_item.save
       redirect_to order_path(@cart), notice: 'Product added to cart!'
     else
       redirect_to product_path(@product), alert: "Failed to add product to cart: #{order_item.errors.full_messages.to_sentence}"
     end
-
   end
 
   def remove_from_cart
@@ -31,7 +33,7 @@ class OrdersController < ApplicationController
   end
 
   def place_order
-    if @cart.update(status: :placed)
+    if @cart.update(shipping_address: params[:order][:shipping_address], status: :placed)
       redirect_to orders_path, notice: 'Order placed successfully!'
     else
       redirect_to order_path(@cart), alert: 'There was an error placing the order.'

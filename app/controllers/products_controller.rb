@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :current_cart, only: :index
+  skip_before_action :authenticate_user!
 
   def index
     @products = Product.all.page(params[:page]).per(5)
