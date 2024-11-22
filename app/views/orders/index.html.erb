@@ -1,81 +1,54 @@
 <h1 class="text-2xl font-bold mb-4">Your Orders</h1>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200">
-      <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Order Id</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">status</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">shipping Address</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Product Name</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Product Quantity</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Total Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @orders.each do |order| %>
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium"><%= order.id %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
-              <%= order.status.capitalize %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
-              <% if order.shipping_address.present? %>
-              <div class="mb-4">
-                <p class="text-gray-600"><%= order.shipping_address %></p>
-              </div>
+<div class="overflow-x-auto">
+  <table class="min-w-full bg-white border border-gray-200">
+    <thead >
+      <tr>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Order ID</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Status</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Shipping Address</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Order Items</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Total</th>
+      </tr>
+    </thead>
+    <tbody >
+      <% @orders.each do |order| %>
+        <tr class="hover:bg-gray-50 transition">
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            Order #<span class="text-indigo-600"><%= order.id %></span>
+          </td>
+
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            <span class="font-medium 
+              <%= order.status == 'shipped' ? 'text-green-600' : 'text-yellow-500' %>">
+              <%= order.status.capitalize %>
+            </span>
+          </td>
+
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            <% if order.shipping_address.present? %>
+              <%= order.shipping_address %>
             <% else %>
-              <div class="mb-4">
-                <p class="text-sm text-red-500">No shipping address provided.</p>
-              </div>
-            <% end %></td>
-            <% order.order_items.each do |item| %>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800"><%= item.product.name %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800"><%= item.quantity %></td>
+              <span class="text-red-500">No shipping address provided</span>
             <% end %>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">Total: <%= number_to_currency(order.order_items.sum { |item| item.product.price * item.quantity }) %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<!-- <h1 class="text-2xl font-bold text-gray-800 mb-8">Your Orders</h1>
+          </td>
 
-<div class="space-y-6">
-  <% @orders.each do |order| %>
-    <div class="p-6 bg-white rounded-lg shadow-md border border-gray-200">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-lg font-semibold text-gray-700">
-          Order #<span class="text-indigo-600"><%= order.id %></span>
-        </h2>
-        <span class="text-sm font-medium 
-          <%= order.status == 'shipped' ? 'text-green-600' : 'text-yellow-500' %>">
-          <%= order.status.capitalize %>
-        </span>
-      </div>
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            <ul class="list-disc pl-5 space-y-2">
+              <% order.order_items.each do |item| %>
+                <li>
+                  <span class="font-medium text-gray-800"><%= item.product.name %></span> - 
+                  Quantity: <span class="font-semibold"><%= item.quantity %></span>
+                </li>
+              <% end %>
+            </ul>
+          </td>
 
-      <% if order.shipping_address.present? %>
-        <div class="mb-4">
-          <h3 class="text-md font-semibold text-gray-800">Shipping Address</h3>
-          <p class="text-gray-600"><%= order.shipping_address %></p>
-        </div>
-      <% else %>
-        <div class="mb-4">
-          <p class="text-sm text-red-500">No shipping address provided.</p>
-        </div>
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            <%= number_to_currency(order.order_items.sum { |item| item.product.price * item.quantity }) %>
+          </td>
+        </tr>
       <% end %>
-
-      <ul class="list-disc pl-5 space-y-2 mb-4">
-        <% order.order_items.each do |item| %>
-          <li class="text-gray-600">
-            <span class="font-medium text-gray-800"><%= item.product.name %></span> - 
-            Quantity: <span class="font-semibold"><%= item.quantity %></span>
-          </li>
-        <% end %>
-      </ul>
-
-      <div class="flex justify-between items-center">
-        <p class="text-lg font-semibold text-gray-800">Total: <%= number_to_currency(order.order_items.sum { |item| item.product.price * item.quantity }) %></p>
-      </div>
-    </div>
-  <% end %>
-</div> -->
+    </tbody>
+  </table>
+</div>
