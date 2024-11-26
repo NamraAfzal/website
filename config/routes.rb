@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :products, only: :index
-  resources :categories, only: :show
+  get 'pages/contact'
+  resources :products, only: %i[index show]
+  resources :categories, only: %i[index show]
   namespace :sellers do
     resources :products
     root to: "dashboard#index"
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
     root to: "dashboard#index"
   end
 
+  resources :order_items, only: %i[ index create destroy ]
+  get '/cart', to: 'orders#show_cart'
+  post '/place_order', to: 'orders#place_order', as: :place_order
   resources :orders, only: %i[index show] do
     collection do
       get :seller_orders
@@ -25,6 +29,8 @@ Rails.application.routes.draw do
       patch :place_order
     end
   end
+
+  get 'contact', to: 'pages#contact', as: 'contact'
 
   devise_for :sellers, path: 'sellers'
   devise_for :users, path: 'users'
