@@ -7,26 +7,18 @@
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Name</th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Category</th>
           <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Price</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <% @products.each do |product| %>
-          <tr class="hover:bg-gray-50">
+        <% category = params[:category].to_i %>
+        <% Product.where(category_id: category).each do |product| %>
+          <tr class="hover:bg-gray-50 cursor-pointer" onclick="window.location='<%= product_path(product) %>'">
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium"><%= product.name %></td>
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800"><%= product.category&.name || 'N/A' %></td>
             <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">$<%= product.price %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
-              <% if user_signed_in? %>
-                      <%= button_to 'Add to Cart', add_to_cart_order_path(current_cart, product_id: product.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
-              <% else %>
-                <p class="text-red-500">Login to add to cart</p>
-              <% end %> 
-            </td>
           </tr>
         <% end %>
-      </tbody>
+      </tbody>          
     </table>
   </div>
-
-<%= paginate @products %>
+  
