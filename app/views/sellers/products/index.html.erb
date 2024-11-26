@@ -1,7 +1,7 @@
 <h1>Products</h1>
 <h1>Your Products</h1>
-
-<table class="min-w-full bg-white">
+  
+  <table class="min-w-full bg-white">
   <thead>
     <tr>
       <th class="text-left py-3 px-4">Name</th>
@@ -22,8 +22,9 @@
           <%= link_to 'Delete', sellers_product_path(product),  data: { turbo_method: :delete }, class: "text-red-500 hover:underline" %>
         </td>
       </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to 'Add New Product', new_sellers_product_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-4 rounded" %>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <%= link_to 'Add New Product', new_sellers_product_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-4 rounded" %>
+  
