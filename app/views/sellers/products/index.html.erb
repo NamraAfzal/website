@@ -1,12 +1,13 @@
-<h1>Products</h1>
-<h1>Your Products</h1>
-  
-  <table class="min-w-full bg-white">
+<h1 class="text-3xl font-bold text-gray-800 mb-8">Products</h1>
+<%= link_to 'Add New Product', new_sellers_product_path, class: "top-right-btn bg-green-500 text-white py-2 px-4 rounded" %>
+
+<table class="min-w-full bg-white">
   <thead>
     <tr>
       <th class="text-left py-3 px-4">Name</th>
       <th class="text-left py-3 px-4">Category</th>
       <th class="text-left py-3 px-4">Price</th>
+      <th class="text-left py-3 px-4">Stock</th>
       <th class="text-left py-3 px-4">Actions</th>
     </tr>
   </thead>
@@ -16,15 +17,19 @@
         <td class="py-3 px-4"><%= product.name %></td>
         <td class="py-3 px-4"><%= product.category.name if product.category %></td>
         <td class="py-3 px-4">$<%= product.price %></td>
+        <td class="py-3 px-4"><%= product.stock %></td>
         <td class="py-3 px-4">
-          <%= link_to 'Show', sellers_product_path(product), class: "text-blue-500 hover:underline" %> |
-          <%= link_to 'Edit', edit_sellers_product_path(product), class: "text-yellow-500 hover:underline" %> |
-          <%= link_to 'Delete', sellers_product_path(product),  data: { turbo_method: :delete }, class: "text-red-500 hover:underline" %>
+          <%= link_to sellers_product_path(product), class: "text-blue-500 hover:underline" do %>
+          <i data-fa-symbol="favorite" class="fa-solid fa-star fa-fw"></i>
+          <% end %> 
+          <%= link_to edit_sellers_product_path(product), class: "text-yellow-500 hover:underline" do %>
+          <i data-fa-symbol="edit" class="fa-solid fa-pencil fa-fw"></i>
+          <% end %> 
+          <%= link_to sellers_product_path(product), data: { turbo_method: :delete } do %>
+          <i data-fa-symbol="delete" class="fa-solid fa-trash fa-fw"></i>
+          <% end %>
         </td>
       </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  <%= link_to 'Add New Product', new_sellers_product_path, class: "mt-4 inline-block bg-green-500 text-white py-2 px-4 rounded" %>
-  
+    <% end %>
+  </tbody>
+</table>
