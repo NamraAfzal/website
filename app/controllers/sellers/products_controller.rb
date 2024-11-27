@@ -43,9 +43,7 @@ module Sellers
     end
 
     def product_params
-      params.require(:product).permit(:name, :description, :price, :category_id, images: [])
+      params.require(:product).permit(:name, :description, :price, :category_id, :stock, images: [])
     end
   end
-
-
 end

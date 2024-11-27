@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_11_26_115459) do
+ActiveRecord::Schema[7.1].define(version: 2024_11_27_090654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,6 +92,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_11_26_115459) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "seller_id", null: false
+    t.integer "stock"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["seller_id"], name: "index_products_on_seller_id"
   end
