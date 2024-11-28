@@ -4,12 +4,8 @@ Rails.application.routes.draw do
   resources :categories, only: %i[index show]
   namespace :sellers do
     resources :products
-    root to: "dashboard#index"
-    resources :orders, only: %i[index show update] do
-      collection do
-        get :show
-      end
-    end
+    get 'dashboard', to: 'dashboard#index', as: 'dashboard'
+    resources :orders, only: %i[index show update]
   end
 
   namespace :users do
@@ -33,8 +29,11 @@ Rails.application.routes.draw do
   get 'contact', to: 'pages#contact', as: 'contact'
 
   devise_for :sellers, path: 'sellers'
-  devise_for :users, path: 'users'
-  get '/seller_dashboard', to: 'sellers/dashboard#index', as: 'seller_dashboard'
+  devise_for :users, path: 'users',controllers: {
+    registrations: 'users/registrations'
+  }
+
+
 
   root to: "home#index"
 end
