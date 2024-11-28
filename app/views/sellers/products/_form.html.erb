@@ -16,8 +16,8 @@
   </div>
 
   <div class="field">
-    <%= form.label :stock %>
-    <%= form.number_field :stock, class: "form-control", min: 0 %>
+    <%= form.label :stock, class: "block text-gray-700 font-semibold mb-2" %>
+    <%= form.number_field :stock, class: "shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500", min: 0 %>
   </div>
   
 
@@ -31,7 +31,7 @@
     <%= form.file_field :images, multiple: true, class: "shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" %>
   </div>
 
-  <div class="actions flex justify-center">
+  <div class="actions flex justify-center top-right-btn">
     <%= form.submit submit_text, class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300" %>
   </div>
 

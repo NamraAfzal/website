@@ -1,35 +1,57 @@
-<h1 class="text-3xl font-bold text-gray-800 mb-8">Products</h1>
-<%= link_to 'Add New Product', new_sellers_product_path, class: "top-right-btn bg-green-500 text-white py-2 px-4 rounded" %>
+<div class="container mx-auto p-6">
+  <h1 class="text-3xl font-bold text-gray-800 mb-8">Products</h1>
+  <%= link_to 'Add New Product', new_sellers_product_path, class: "top-right-btn bg-green-500 text-white py-2 px-4 rounded" %>
 
-<table class="min-w-full bg-white">
-  <thead>
-    <tr>
-      <th class="text-left py-3 px-4">Name</th>
-      <th class="text-left py-3 px-4">Category</th>
-      <th class="text-left py-3 px-4">Price</th>
-      <th class="text-left py-3 px-4">Stock</th>
-      <th class="text-left py-3 px-4">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td class="py-3 px-4"><%= product.name %></td>
-        <td class="py-3 px-4"><%= product.category.name if product.category %></td>
-        <td class="py-3 px-4">$<%= product.price %></td>
-        <td class="py-3 px-4"><%= product.stock %></td>
-        <td class="py-3 px-4">
-          <%= link_to sellers_product_path(product), class: "text-blue-500 hover:underline" do %>
-          <i data-fa-symbol="favorite" class="fa-solid fa-star fa-fw"></i>
-          <% end %> 
-          <%= link_to edit_sellers_product_path(product), class: "text-yellow-500 hover:underline" do %>
-          <i data-fa-symbol="edit" class="fa-solid fa-pencil fa-fw"></i>
-          <% end %> 
-          <%= link_to sellers_product_path(product), data: { turbo_method: :delete } do %>
-          <i data-fa-symbol="delete" class="fa-solid fa-trash fa-fw"></i>
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class=" table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xl text-gray-700 font-bold uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                  Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Category
+                </th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                  Price
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Stock
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          <% @products.each do |product| %>
+            <tr class="border-b border-gray-200 dark:border-gray-700">
+              <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                <%= product.name %>
+              </th>
+              <td class="px-6 py-4">
+                <%= product.category.name if product.category %>
+              </td>
+              <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                $<%= product.price %>
+              </td>
+              <td class="px-6 py-4">
+                <%= product.stock.presence || "N/A" %>
+              </td>
+              <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
+                <%= link_to sellers_product_path(product), class: "text-blue-500 hover:underline" do %>
+                <i class="fa-solid fa-eye"></i>
+                <% end %> 
+                <%= link_to edit_sellers_product_path(product), class: "text-yellow-500 hover:underline" do %>
+                <i data-fa-symbol="edit" class="fa-solid fa-pencil fa-fw"></i>
+                <% end %> 
+                <%= link_to sellers_product_path(product), data: { turbo_method: :delete } do %>
+                <i data-fa-symbol="delete" class="fa-solid fa-trash fa-fw"></i>
+                <% end %>
+              </td>
+            </tr>
           <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+    </table>
+  </div>
+</div>
