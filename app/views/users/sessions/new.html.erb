@@ -1,32 +1,65 @@
-<h2 class="text-2xl font-semibold text-center mb-6">Log in</h2>
+<div class="container">
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" }) do |f| %>
-  <div class="mb-4">
-    <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-  </div>
+  <h2 class="text-2xl font-semibold text-center mb-6">Log in</h2>
 
-  <div class="mb-4">
-    <%= f.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.password_field :password, autocomplete: "current-password", class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" }) do |f| %>
+    <div class="mb-4">
+      <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "shadow appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+    <div class="mb-4">
+      <%= f.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+    </div>
+    <div class="field">
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    
+    <%= f.fields_for :address do |address_form| %>
+      <div class="field">
+        <%= address_form.label :street %>
+        <%= address_form.text_field :street %>
+      </div>
+    
+        <div class="field">
+          <%= address_form.label :city %>
+          <%= address_form.text_field :city %>
+        </div>
+    
+        <div class="field">
+          <%= address_form.label :state %>
+          <%= address_form.text_field :state %>
+        </div>
+    
+        <div class="field">
+          <%= address_form.label :zip_code %>
+          <%= address_form.text_field :zip_code %>
+        </div>
+    
+        <div class="field">
+          <%= address_form.label :country %>
+          <%= address_form.text_field :country %>
+        </div>
+      <% end %>
 
-  <% if devise_mapping.rememberable? %>
-    <div class="mb-4 flex items-center">
-      <%= f.check_box :remember_me, class: "mr-2 leading-tight" %>
-      <%= f.label :remember_me, class: "text-gray-700 text-sm font-semibold" %>
+    <% if devise_mapping.rememberable? %>
+      <div class="mb-4 flex items-center">
+        <%= f.check_box :remember_me, class: "mr-2 leading-tight" %>
+        <%= f.label :remember_me, class: "text-gray-700 text-sm font-semibold" %>
+      </div>
+    <% end %>
+
+    <div class="flex items-center justify-between">
+      <%= f.submit "Log in", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
+
+    <div class="text-center mt-4">
+      <%= link_to 'Log In as Seller', new_seller_session_path, class: 'text-blue-500 hover:text-blue-700' %> |
+      <%= link_to 'Sign Up as Seller', new_seller_registration_path, class: 'text-blue-500 hover:text-blue-700' %>
     </div>
   <% end %>
+</div>
 
-  <div class="flex items-center justify-between">
-    <%= f.submit "Log in", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-  </div>
-
-  <div class="text-center mt-4">
-    <%= link_to 'Log In as Seller', new_seller_session_path, class: 'text-blue-500 hover:text-blue-700' %> |
-    <%= link_to 'Sign Up as Seller', new_seller_registration_path, class: 'text-blue-500 hover:text-blue-700' %>
-  </div>
-<% end %>
 
 <%= render "users/shared/links", class: "text-center mt-4 text-sm text-gray-600" %>
-
