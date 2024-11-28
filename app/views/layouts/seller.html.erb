@@ -14,10 +14,10 @@
 
   <body>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-    <% unless devise_controller? %>
+    <% unless devise_controller? && controller_name == 'dashboard' && controller_path == 'sellers/dashboard' %>
     <%= render 'layouts/navbar' %>
     <% end %>
-    <% if notice %>
+        <% if notice %>
       <div id="notice-alert" class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
         <span class="font-medium"><%= notice %></span>
       </div>
@@ -27,9 +27,12 @@
         <span class="font-medium"><%= alert %></span>
       </div>
     <% end %>
-    <%= yield %>
+    <div class="container mx-auto p-6">
+      <%= yield %>
+    </div>
   </body>
 </html>
+
 
 <script>
   setTimeout(() => {

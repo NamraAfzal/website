@@ -15,7 +15,7 @@
           </svg>
         </button>
       </div>
-      <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start gap-x-6">
+      <div class="flex flex-1 items-center sm:items-stretch sm:justify-start gap-x-6">
         <div class="flex shrink-0 items-center">
           <img class="h-8 w-auto" src="https://tailwindui.com/plus/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company">
         </div>
@@ -24,43 +24,49 @@
       <div class="flex flex-1 items-center justify-end sm:items-stretch">
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-                <div class="flex items-center space-x-4">
-                    <% if user_signed_in? %>
-                    <%= link_to 'Orders', orders_path, class: 'text-white hover:text-gray-400' %>
-                    <% end %>
+                <div class="flex items-center justify-between space-x-8">
                     <% if seller_signed_in? %>
-                    <%= link_to 'Orders', sellers_orders_path, class: 'text-white hover:text-gray-400' %>
+                      <%= link_to 'Dashboard', sellers_dashboard_path, class: 'text-white hover:text-gray-400' %>
+                      <%= link_to 'Orders', sellers_orders_path, class: 'text-white hover:text-gray-400' %>
+                      <%= link_to 'Products', sellers_products_path, class: 'text-white hover:text-gray-400' %>
+                      <%= link_to 'Add New Product', new_sellers_product_path, class: "text-white hover:text-gray-400" %>
+                    <% elsif user_signed_in? %>
+                      <%= link_to 'Orders', orders_path, class: 'text-white hover:text-gray-400' %>
                     <% end %>
-                    <div class="relative group">
-                      <button class="text-white bg-gray-800 px-4 py-2 rounded-md">Categories</button>
-                      <div class="absolute left-0 hidden group-hover:block bg-gray-800 text-white rounded-md shadow-lg w-48 mt-2 z-10">
-                        <ul>
-                          <% Category.all.each do |category| %>
-                            <li>
-                              <%= link_to category.name, products_path(category: category.id), class: "block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white" %>
-                            </li>
-                          <% end %>
-                        </ul>                        
-                      </div>
-                    </div>
-                    <% if current_user %>
-                    <% cart = current_user.orders.find_by(status: :cart) %>
-                    <% if cart %>
-                    <li >
-                      <%= link_to "Cart (#{cart.order_items.sum(:quantity) || 0})", order_items_path(cart), class: 'text-white hover:text-gray-400' %>
-                    </li>
-                    <% else %>
-                    <li>
-                      <%= link_to "Cart (0)", "#", class: 'text-white hover:text-gray-400' %>
-                    </li>
-                    <% end %>
-                    <% end %>
-                    <%= link_to 'Contact Us', contact_path, class: 'text-white hover:text-gray-400' %>
+                        <% if user_signed_in? %>
+                          <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">Categories<svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                            </svg>
+                            </button>
+                            <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+                                  <% Category.all.each do |category| %>
+                                      <li>
+                                        <%= link_to category.name, products_path(category: category.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                                      </li>
+                                  <% end %>
+                                </ul>
+                            </div>
+                        <% end %>    
+                        <% if current_user %>
+                        <% cart = current_user.orders.find_by(status: :cart) %>
+                        <% if cart %>
+                        <li >
+                          <%= link_to "Cart (#{cart.order_items.sum(:quantity) || 0})", order_items_path(cart), class: 'text-white hover:text-gray-400' %>
+                        </li>
+                        <% else %>
+                        <li>
+                          <%= link_to "Cart (0)", "#", class: 'text-white hover:text-gray-400' %>
+                        </li>
+                        <% end %>
+                        <% end %>
+                        
+                        <%= link_to 'Contact Us', contact_path, class: 'text-white hover:text-gray-400' %>
                 </div>
             </div>
           </div>          
       </div>
-      <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div class=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <% if user_signed_in? %>
         <%= link_to 'Log Out', destroy_user_session_path, data: { turbo_method: :delete }, class: "rounded-md px-3 py-2 text-sm font-semibold text-gray-300 hover:bg-gray-700 hover:text-white"%>
         <% elsif seller_signed_in? %>
