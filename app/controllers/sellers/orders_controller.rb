@@ -1,10 +1,18 @@
 module Sellers
   class OrdersController < ApplicationController
     before_action :set_order, only: [:update]
-    def show
-      @orders = Order.joins(:order_items).where(order_items: { product_id: current_seller.products.select(:id) }).where(status: :placed).distinct
 
-      render :show
+    def index
+      @orders = Order.joins(:order_items).where(order_items: { product_id: current_seller.products.select(:id) }).where(status: :placed).distinct
+    end
+
+    def show
+      @orders = Order.joins(:order_items).where(order_items: { product_id: current_seller.products.select(:id) }).distinct
+      @selected_order = @orders.find_by(id: params[:id])
+
+      if @selected_order.nil?
+        redirect_to sellers_orders_path, alert: "Order not found."
+      end
     end
 
     def update
@@ -15,7 +23,7 @@ module Sellers
             flash[:success] = "Order status updated successfully."
             redirect_to sellers_orders_path
           end
-          format.turbo_stream # Respond with a Turbo Stream template
+          format.turbo_stream
         end
       else
         respond_to do |format|

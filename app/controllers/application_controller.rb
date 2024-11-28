@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Seller)
-      sellers_products_path
+      sellers_dashboard_path
     else
       products_path
     end
