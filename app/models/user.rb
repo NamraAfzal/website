@@ -1,8 +1,5 @@
 class User < ApplicationRecord
   has_many :orders, dependent: :destroy
-  has_one :address, dependent: :destroy
-  accepts_nested_attributes_for :address
-  # after_create :initialize_cart
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 
