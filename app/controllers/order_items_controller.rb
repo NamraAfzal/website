@@ -4,6 +4,10 @@ class OrderItemsController < ApplicationController
   def index
     @order_items = @order.order_items || []
   end
+  # def index
+  #   @order_items = current_user.order_items # or the correct association
+  #   @OrderItem = @order_items.first # Example logic, adjust as needed
+  # end
 
   def create
     @order = current_user.orders.find_or_create_by(status: :cart)

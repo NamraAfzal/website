@@ -48,6 +48,7 @@
               ></textarea>
             </div>
           <% end %>
+          <%= button_to "Buy Now", checkout_create_path, params: { id: @order.id }, remote: true %>
           <button 
             type="submit" 
             class="w-full py-3 bg-green-500 text-white text-lg font-semibold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">

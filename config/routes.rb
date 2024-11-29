@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   devise_for :users, path: 'users',controllers: {
     registrations: 'users/registrations'
   }
-
+  post "checkout/create", to: "checkout#create"
 
 
   root to: "home#index"
