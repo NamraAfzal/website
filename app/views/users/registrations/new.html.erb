@@ -18,37 +18,10 @@
     <% end %><br>
     <%= f.password_field :password, autocomplete: "new-password", class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-1" %>
   </div>
-  
   <div class="field">
-    <h3>Address</h3>
-    <%= f.fields_for :address do |address_form| %>
-      <div class="field">
-        <%= address_form.label :street, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= address_form.text_field :street, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-  
-      <div class="field">
-        <%= address_form.label :city, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= address_form.text_field :city, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-  
-      <div class="field">
-        <%= address_form.label :state, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= address_form.text_field :state, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-  
-      <div class="field">
-        <%= address_form.label :zip_code, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= address_form.text_field :zip_code, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-  
-      <div class="field">
-        <%= address_form.label :country, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= address_form.text_field :country, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
-      </div>
-    <% end %>
-  </div>
-  
+    <%= f.label :address, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.text_field :address, class: "shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+  </div> 
   <div class="flex items-center justify-between">
     <%= f.submit "Sign up", class: "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
