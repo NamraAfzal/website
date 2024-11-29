@@ -24,11 +24,6 @@
   </div>
 </div>
 
-
-
-
-
-
 <div class="bg-white">
   <div class="pt-6">
     
@@ -42,20 +37,17 @@
       <% end %>
     </div>
 
-    <!-- Product info -->
     <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
       <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
         <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @product.name %></h1>
       </div>
 
-      <!-- Options -->
       <div class="mt-4 lg:row-span-3 lg:mt-0">
         <h2 class="sr-only">Product information</h2>
         <p class="text-3xl tracking-tight text-gray-900">$<%= @product.price %></p>
 
 
         <form class="mt-10">
-          <!-- Colors -->
           <div>
             <h3 class="text-sm font-medium text-gray-900">Color</h3>
 
@@ -80,7 +72,6 @@
             </fieldset>
           </div>
 
-          <!-- Sizes -->
           <div class="mt-10">
             <div class="flex items-center justify-between">
               <h3 class="text-sm font-medium text-gray-900">Size</h3>
@@ -186,9 +177,14 @@
             </button>
           </div>
           <% if user_signed_in? %>
-              <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                Add to Cart
-              </button>
+            <% if @product.stock > 1 %>
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                  Add to Cart
+                </button>
+                <p class="mt-4 text-lg font-medium text-gray-900"> Remaining Stock: <%= @product.stock.presence || "N/A" %></p>
+            <% else %>
+                  <p class="mt-10">Sorry Out of Stock</p>
+            <% end %>    
           <% else %>
               <P class="mt-10">Please login to order</P></br><%= link_to 'Log In', new_user_session_path, class: 'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500' %>
           <% end %>
