@@ -1,27 +1,35 @@
 module Sellers
   class OrdersController < ApplicationController
-    before_action :set_order, only: [:update]
+    before_action :set_order, only: [:show, :edit, :update]
+
 
     def index
-      @orders = Order.joins(:order_items).where(order_items: { product_id: current_seller.products.select(:id) }).where(status: :placed).distinct
+      @q = Order.for_seller(current_seller).ransack(params[:q])
+      @orders = @q.result(distinct: true)
     end
 
     def show
-      @orders = Order.joins(:order_items).where(order_items: { product_id: current_seller.products.select(:id) }).distinct
+      @orders = Order.for_seller(current_seller)
       @selected_order = @orders.find_by(id: params[:id])
 
-      if @selected_order.nil?
-        redirect_to sellers_orders_path, alert: "Order not found."
-      end
+      @q = Order.ransack(params[:q])
+      @selected_order = @order
+
+      redirect_to sellers_orders_path, alert: "Order not found." if @selected_order.nil?
+    end
+
+    def edit
+      @order = current_seller.orders.find(params[:id])
     end
 
     def update
-      status = order_params[:status].to_i
-      if @order.update(status: status)
+      @order = current_seller.orders.find(params[:id])
+      if @order.update(order_params)
+        redirect_to sellers_order_path
         respond_to do |format|
           format.html do
             flash[:success] = "Order status updated successfully."
-            redirect_to sellers_orders_path
+            redirect_to sellers_order_path
           end
           format.turbo_stream
         end
@@ -29,9 +37,11 @@ module Sellers
         respond_to do |format|
           format.html do
             flash[:error] = "Failed to update order status."
-            render :seller_orders
+            render :edit
           end
-          format.turbo_stream { render turbo_stream: turbo_stream.replace(@order, partial: "sellers/orders/order", locals: { order: @order }) }
+          format.turbo_stream do
+            render turbo_stream: turbo_stream.replace("order_#{@order.id}", partial: "sellers/orders/order", locals: { order: @order })
+          end
         end
       end
     end
@@ -39,12 +49,7 @@ module Sellers
     private
 
     def set_order
-      @order = Order.joins(:order_items)
-                    .where(order_items: { order_id: current_seller.products.pluck(:id) })
-                    .find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      flash[:error] = "Order not found."
-      redirect_to sellers_orders_path
+      @order = Order.find(params[:id])
     end
 
     def order_params
