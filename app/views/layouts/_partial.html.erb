@@ -1,0 +1,18 @@
+<script>
+  setTimeout(() => {
+    const notice = document.getElementById('notice-alert');
+    const alert = document.getElementById('alert-alert');
+
+    if (notice) {
+      notice.style.transition = "opacity 0.3s";
+      notice.style.opacity = "0"; 
+      setTimeout(() => notice.remove(), 300); 
+    }
+
+    if (alert) {
+      alert.style.transition = "opacity 0.3s";
+      alert.style.opacity = "0"; 
+      setTimeout(() => alert.remove(), 300); 
+    }
+  }, 3000); 
+</script>

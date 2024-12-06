@@ -1,43 +1,41 @@
 <div class="bg-white">
-  <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
 
-    <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-      <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="size-full object-cover object-center lg:size-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <% Product.all.each do |product| %>
+        <div class="group relative border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white">
+          <div class="overflow-hidden rounded-t-lg bg-gray-100">
+            <% if product.image.attached? %>
+              <%= image_tag product.image.first, alt: product.name, class: "h-48 w-full object-cover object-center" %>
+            <% else %>
+              <div class="h-48 flex items-center justify-center text-gray-500 text-sm">
+                No Image Available
+              </div>
+            <% end %>
+          </div>
+
+          <div class="p-4">
+            <h3 class="text-lg font-medium text-gray-700 truncate">
               <a href="#">
                 <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
+                <%= product.name %>
               </a>
             </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
+            <p class="mt-2 text-sm text-gray-500"><%= truncate(product.description, length: 60) %></p>
+            <p class="mt-4 text-lg font-semibold text-gray-900">$<%= product.price %></p>
+            <p class="mt-4 text-lg font-medium text-gray-900">Stock: 
+              <% if product.stock > 0 %>
+                <span style="color: green;"><%= product.stock %> available</span>
+              <% else %>
+                <span style="color: red;">Out of Stock</span>
+              <% end %>
           </div>
-          <p class="text-sm font-medium text-gray-900">$35</p>
-        </div>
-      </div>
-      <div class="group relative">
-        <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-          <img src="https://tailwindui.com/plus/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Front of men&#039;s Basic Tee in black." class="size-full object-cover object-center lg:size-full">
-        </div>
-        <div class="mt-4 flex justify-between">
-          <div>
-            <h3 class="text-sm text-gray-700">
-              <a href="#">
-                <span aria-hidden="true" class="absolute inset-0"></span>
-                Basic Tee
-              </a>
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">Black</p>
-          </div>
-          <p class="text-sm font-medium text-gray-900">$35</p>
-        </div>
-      </div>
 
+          <div class="absolute inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-75 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+            <%= link_to "View Details", product_path(product), class: "text-center text-sm font-medium px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md" %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

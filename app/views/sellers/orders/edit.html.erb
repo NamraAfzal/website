@@ -1,0 +1,23 @@
+<h1 class="text-2xl font-bold mb-4">Edit Order #<%= @order.id %></h1>
+
+<div class="bg-white shadow-md rounded p-6">
+  <%= form_with(model: @order, url: sellers_order_path(@order), method: :patch) do |form| %>
+    <div class="mb-4">
+      <label for="status" class="block text-gray-700 text-sm font-bold mb-2">Order Status:</label>
+      <%= form.select :status, 
+        options_for_select(
+          Order.statuses.keys.map { |status| [status.humanize, status] }, 
+          @order.status
+        ), 
+        {}, 
+        class: "w-full border border-gray-300 rounded-md bg-white py-1 px-2 text-sm focus:outline-none focus:ring focus:ring-blue-500 focus:border-blue-500 text-gray-800" %>
+    </div>
+
+    <div class="flex items-center justify-between">
+      <%= form.submit "Update", 
+        class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      <%= link_to "Cancel", sellers_orders_path, class: "text-blue-500 hover:underline" %>
+    </div>
+  <% end %>
+</div>
+

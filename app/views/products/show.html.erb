@@ -1,0 +1,178 @@
+<div class="bg-white">
+  <div class="pt-6">
+    <nav aria-label="Breadcrumb">
+      <ol role="list" class="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <li>
+          <div class="flex items-center">
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900">Categories</a>
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+            </svg>
+          </div>
+        </li>
+        <li>
+          <div class="flex items-center">
+            <a href="#" class="mr-2 text-sm font-medium text-gray-900"><%= @product.category.name %></a>
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" aria-hidden="true" class="h-5 w-4 text-gray-300">
+              <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+            </svg>
+          </div>
+        </li>
+      </ol>
+    </nav>
+  </div>
+</div>
+<div class="bg-white">
+  <div class="pt-6">
+    <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+      <% if @product.image.attached? %>
+        <% @product.image.find_each do |image| %>
+          <%= image_tag image, alt: @product.name %>
+        <% end %>
+      <% else %>
+          <p>No images available for this product.</p>
+      <% end %>
+    </div>
+    <div class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16">
+      <div class="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
+        <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @product.name %></h1>
+      </div>
+      <div class="mt-4 lg:row-span-3 lg:mt-0">
+        <h2 class="sr-only">Product information</h2>
+        <p class="text-3xl tracking-tight text-gray-900">$<%= @product.price %></p>
+        <form class="mt-10">
+          <div>
+            <h3 class="text-sm font-medium text-gray-900">Color</h3>
+
+            <fieldset aria-label="Choose a color" class="mt-4">
+              <div class="flex items-center space-x-3">
+                <label aria-label="White" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
+                  <input type="radio" name="color-choice" value="White" class="sr-only">
+                  <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-white"></span>
+                </label>
+                <label aria-label="Gray" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-400 focus:outline-none">
+                  <input type="radio" name="color-choice" value="Gray" class="sr-only">
+                  <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-200"></span>
+                </label>
+                <label aria-label="Black" class="relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 ring-gray-900 focus:outline-none">
+                  <input type="radio" name="color-choice" value="Black" class="sr-only">
+                  <span aria-hidden="true" class="size-8 rounded-full border border-black/10 bg-gray-900"></span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="mt-10">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm font-medium text-gray-900">Size</h3>
+              <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
+            </div>
+
+            <fieldset aria-label="Choose a size" class="mt-4">
+              <div class="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+                <label class="group relative flex cursor-not-allowed items-center justify-center rounded-md border bg-gray-50 px-4 py-3 text-sm font-medium uppercase text-gray-200 hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="XXS" disabled class="sr-only">
+                  <span>XXS</span>
+                  <span aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                    <svg class="absolute inset-0 size-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
+                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
+                    </svg>
+                  </span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="XS" class="sr-only">
+                  <span>XS</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="S" class="sr-only">
+                  <span>S</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="M" class="sr-only">
+                  <span>M</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="L" class="sr-only">
+                  <span>L</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="XL" class="sr-only">
+                  <span>XL</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="2XL" class="sr-only">
+                  <span>2XL</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+                <label class="group relative flex cursor-pointer items-center justify-center rounded-md border bg-white px-4 py-3 text-sm font-medium uppercase text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6">
+                  <input type="radio" name="size-choice" value="3XL" class="sr-only">
+                  <span>3XL</span>
+                  <span class="pointer-events-none absolute -inset-px rounded-md" aria-hidden="true"></span>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+        </form>
+        <%= form_with url: order_items_path, method: :post, local: true do %>
+          <%= hidden_field_tag :product_id, @product.id %>
+          <div class="flex items-center space-x-2 mb-4">
+            <button type="button" class="px-2 py-1 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" id="minus-button">
+              -
+            </button>
+            <input type="number" name="quantity" id="quantity" value="1" min="1" class="w-16 text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <button type="button" class="px-2 py-1 bg-gray-300 text-gray-700 rounded-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500" id="plus-button">
+              +
+            </button>
+          </div>
+          <% if @product.stock > 1 %>
+              <% if user_signed_in? %>
+                  <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Add to Cart
+                  </button>
+                  <p class="mt-4 text-lg font-medium text-gray-900"> Remaining Stock: 
+                    <% if @product.stock > 0 %>
+                      <span style="color: green;"><%= @product.stock %> available</span>
+                    <% else %>
+                      <span style="color: red;">Out of Stock</span>
+                    <% end %>
+              <% else %>
+                  <P class="mt-10">Please login to order</P></br><%= link_to 'Log In', new_user_session_path, class: 'px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500' %>
+              <% end %>    
+          <% else %>
+                <button disabled style="background-color: gray; color: white;">Out of Stock</button>
+          <% end %>
+        <% end %>
+        <script>
+          const quantityInput = document.getElementById('quantity');
+          const minusButton = document.getElementById('minus-button');
+          const plusButton = document.getElementById('plus-button');
+        
+          minusButton.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+              quantityInput.value = currentQuantity - 1;
+            }
+          });
+          plusButton.addEventListener('click', function() {
+            let currentQuantity = parseInt(quantityInput.value);
+            quantityInput.value = currentQuantity + 1;
+          });
+        </script>
+      </div>
+
+      <div class="py-10 lg:col-span-2 lg:col-start-1 lg:border-r lg:border-gray-200 lg:pb-16 lg:pr-8 lg:pt-6">
+        <div>
+          <h3 class="sr-only">Description</h3>
+
+          <div class="space-y-6">
+            <p class="text-base text-gray-900"><%= @product.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

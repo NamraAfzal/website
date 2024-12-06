@@ -1,20 +1,18 @@
 Rails.application.routes.draw do
-  resources :products, only: :index
+  get 'pages/contact'
+  resources :products, only: %i[index show]
+  resources :categories, only: %i[index show]
   namespace :sellers do
     resources :products
-    root to: "dashboard#index"
-    resources :orders, only: %i[index show update] do
-      collection do
-        get :seller_orders
-      end
-    end
+    resources :dashboard, only: :index
+    resources :orders, only: %i[index show edit update]
   end
-
-  namespace :users do
-    root to: "dashboard#index"
+  resources :order_items, only: %i[ index show create destroy ]do
+  patch :update_quantity, on: :member
   end
-
-  resources :orders, only: %i[index show] do
+  get '/cart', to: 'orders#show_cart'
+  post '/place_order', to: 'orders#place_order', as: :place_order
+  resources :orders, only: %i[index show create] do
     collection do
       get :seller_orders
     end
@@ -22,12 +20,16 @@ Rails.application.routes.draw do
       post :add_to_cart
       delete :remove_from_cart
       patch :place_order
+      post :checkout
     end
   end
 
+  get 'contact', to: 'pages#contact', as: 'contact'
+
   devise_for :sellers, path: 'sellers'
-  devise_for :users, path: 'users'
-  get '/seller_dashboard', to: 'sellers/dashboard#index', as: 'seller_dashboard'
+  devise_for :users, path: 'users',controllers: {
+    registrations: 'users/registrations'
+  }
 
   root to: "home#index"
 end

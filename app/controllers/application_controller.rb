@@ -13,14 +13,21 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     if resource.is_a?(Seller)
-      sellers_products_path
+      sellers_dashboard_index_path
     else
       products_path
     end
   end
 
   def current_cart
-    @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
+    if current_user
+      @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
+    else
+      @current_cart ||= Order.find_or_create_by(id: session[:cart_id], status: :cart) do |order|
+        order.guest = true
+      end
+      session[:cart_id] = @current_cart.id
+    end
   end
 
   private
