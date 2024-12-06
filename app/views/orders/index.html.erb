@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @orders.each do |order| %>
+      <% @orders.find_each do |order| %>
         <tr class="hover:bg-gray-50 transition">
           <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
             Order #<span class="text-indigo-600"><%= order.id %></span>
@@ -35,7 +35,7 @@
 
           <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
             <ul class="list-disc pl-5 space-y-2">
-              <% order.order_items.each do |item| %>
+              <% order.order_items.find_each do |item| %>
                 <li>
                   <span class="font-medium text-gray-800"><%= item.product.name %></span> - 
                   Quantity: <span class="font-semibold"><%= item.quantity %></span>

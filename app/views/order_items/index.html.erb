@@ -2,19 +2,24 @@
   <h1 class="text-xl font-bold text-gray-800 mb-6 text-center">Your Cart</h1>
 
   <% if @order_items.any? %>
-    <ul class="space-y-6">
-      <% @order_items.each do |item| %>
-        <li class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
-          <div>
-            <p class="text-xl font-semibold text-gray-700"><%= item.product.name %></p>
+  <ul class="space-y-6">
+    <% @order_items.each do |item| %>
+      <li class="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm">
+        <div>
+          <p class="text-xl font-semibold text-gray-700"><%= item.product.name %></p>
+          <div class="flex items-center space-x-2">
+            <%= button_to '+', update_quantity_order_item_path(item, operation: 'increase'), method: :patch, class: "px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2", remote: true %>
             <p class="text-lg text-gray-600">Quantity: <%= item.quantity %></p>
+            <%= button_to '-', update_quantity_order_item_path(item, operation: 'decrease'), method: :patch, class: "px-3 py-1 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2", remote: true %>
           </div>
-          <div>
-            <%= button_to 'Remove', order_item_path(item), method: :delete, class: "px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2" %>
-          </div>
-        </li>
-      <% end %>
-    </ul>
+        </div>
+        <div>
+          <%= button_to 'Remove', order_item_path(item), method: :delete, class: "px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2", remote: true %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  
 
     <div class="mt-8 text-l flex font-semibold justify-between text-center bg-gray-100 rounded-lg p-4">
       Total: $<%= @order_items.sum { |item| item.product.price * item.quantity } %>
@@ -48,7 +53,6 @@
               ></textarea>
             </div>
           <% end %>
-          <%= button_to "Buy Now", checkout_create_path, params: { id: @order.id }, remote: true %>
           <button 
             type="submit" 
             class="w-full py-3 bg-green-500 text-white text-lg font-semibold rounded-lg hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
