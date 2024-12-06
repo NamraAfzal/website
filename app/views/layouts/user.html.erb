@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <script src="https://js.stripe.com/v3/"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -32,21 +33,4 @@
     </div>
   </body>
 </html>
-<script>
-  setTimeout(() => {
-    const notice = document.getElementById('notice-alert');
-    const alert = document.getElementById('alert-alert');
-
-    if (notice) {
-      notice.style.transition = "opacity 0.3s";
-      notice.style.opacity = "0"; 
-      setTimeout(() => notice.remove(), 300); 
-    }
-
-    if (alert) {
-      alert.style.transition = "opacity 0.3s";
-      alert.style.opacity = "0"; 
-      setTimeout(() => alert.remove(), 300); 
-    }
-  }, 3000); 
-</script>
+<%= render 'layouts/partial' %>
