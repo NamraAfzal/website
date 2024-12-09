@@ -23,3 +23,16 @@
   max-width: 38%;
   width: 367px;
 }
+.column {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.second-column {
+  flex: 1; 
+  justify-content: center;
+  align-items: center;
+  padding-left: 436px;
+  padding-right: 270px;
+  padding-bottom: 166px;
+}
