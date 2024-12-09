@@ -60,6 +60,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ]
   gem 'rspec-rails', '~> 6.0'
   gem 'faker'
+  gem "letter_opener"
 end
 
 group :development do
