@@ -5,11 +5,19 @@
   <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
   <%= f.search_field :name_cont, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
 
-  <%= f.label :price, class: "block text-sm font-medium text-gray-700" %>
-  <%= f.search_field :price, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+  <%= f.label :price_eq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_eq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+  <%= f.label :price_gteq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_gteq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+  
+  <%= f.label :price_lteq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_lteq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
 
   <%= f.submit "Search" , class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"%>
-<% end %>
+  <%= link_to "Clear", products_path, class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+  <% end %>
 </div>
 <h1 class="text-2xl font-bold mb-4">Products</h1>
 
@@ -34,7 +42,7 @@
             <h3 class="text-sm font-medium text-gray-700 truncate">
               <a href="#">
                 <span aria-hidden="true" class="absolute inset-0"></span>
-                <%= product.name %>
+                <%=sort_link(@q, :product.name) %>
               </a>
             </h3>
             <p class="mt-2 text-sm text-gray-500"><%= truncate(product.description, length: 60) %></p>

@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
     @products =
     if params[:category].present?
       category = params[:category].to_i
-      @products = Product.where(category_id: category)
+      @products = @q.result(distinct: true).page(params[:page]).where(category_id: category)
 
     else
       @products = @q.result(distinct: true).page(params[:page])

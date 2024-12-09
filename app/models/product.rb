@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  paginates_per 10
+  paginates_per 40
   has_many_attached :image
   belongs_to :seller
   belongs_to :category
