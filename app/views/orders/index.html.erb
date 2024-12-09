@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @orders.find_each do |order| %>
+      <% @orders.find_each do |order|%>
         <tr class="hover:bg-gray-50 transition">
           <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
             Order #<span class="text-indigo-600"><%= order.id %></span>
