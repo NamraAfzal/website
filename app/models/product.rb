@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  paginates_per 5
+  paginates_per 10
   has_many_attached :image
   belongs_to :seller
   belongs_to :category
@@ -12,6 +12,10 @@ class Product < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     %w[id name price created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["category", "image_attachments", "image_blobs", "order_items", "orders", "seller"]
   end
 
   def total_sales
