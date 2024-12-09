@@ -1,0 +1,11 @@
+<h1>New Order Received</h1>
+<p>Order ID: <%= @order.id %></p>
+<p>Products ordered:</p>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <% if item.product.seller == @seller %>
+      <li><%= item.product.name %> - Quantity: <%= item.quantity %></li>
+    <% end %>
+  <% end %>
+</ul>
+<p>Please prepare the items for shipping.</p>

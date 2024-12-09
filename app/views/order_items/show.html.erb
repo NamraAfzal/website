@@ -1,13 +1,13 @@
-<div class="max-w-sm mx-auto">
+<div class="max-w-full col-1 mx-auto">
   <div>
+    <% @order_items.each do |item| %>
+    <p class="text-2xl font-bold dark:text-white">Product: <%= item.product.name %></p>
+    <p class="text-2xl font-bold dark:text-white">Quantity: <%= item.quantity %></p>
+    <% end %>
+  </div>  
+  <div class="clo-2" style="padding-left: 726px;">
     <h2 class="text-4xl text-center font-extrabold dark:text-white">Pay Now</h2>
     <%= form_with url: checkout_order_path, data: { turbo: false } do |form| %>
-      <% @order_items.each do |item| %>
-        <%= form.hidden_field :order_item_ids, value: item.id %>
-        <p class="text-2xl font-extra dark:text-white">Product: <%= item.product.name %></p>
-        <p class="text-2xl font-extra dark:text-white">Quantity: <%= item.quantity %></p>
-        <hr>
-      <% end %>
 
       <div class="mb-5">
         <%= form.label :full_name, "Full Name", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
