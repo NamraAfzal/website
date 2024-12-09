@@ -30,6 +30,7 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item.destroy
+    redirect_to order_items_path
     respond_to do |format|
       format.html { redirect_to cart_path, notice: 'Product removed from cart.' }
       format.turbo_stream
@@ -39,13 +40,18 @@ class OrderItemsController < ApplicationController
   def update_quantity
     if params[:operation] == "increase"
       @order_item.increment!(:quantity)
+      redirect_to order_items_path
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: 'Cart updated successfully.' }
+        format.turbo_stream
+      end
     elsif params[:operation] == "decrease" && @order_item.quantity > 1
       @order_item.decrement!(:quantity)
-    end
-
-    respond_to do |format|
-      format.html { redirect_to cart_path, notice: 'Cart updated successfully.' }
-      format.turbo_stream
+      redirect_to order_items_path
+      respond_to do |format|
+        format.html { redirect_to cart_path, notice: 'Cart updated successfully.' }
+        format.turbo_stream
+      end
     end
   end
 
