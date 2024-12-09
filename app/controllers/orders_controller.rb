@@ -56,8 +56,18 @@ class OrdersController < ApplicationController
           end
         end
       end
+      if @order.save
+        OrderMailer.user_confirmation(@order).deliver_later
 
-      redirect_to orders_path, notice: 'Payment has been successfully completed.'
+        @order.order_items.includes(:product).map(&:product).map(&:seller).uniq.each do |seller|
+          OrderMailer.seller_notification(@order, seller).deliver_later
+        end
+
+        redirect_to orders_path, notice: 'Payment has been successfully completed.'
+      else
+        render :new, alert: 'Failed to place the order.'
+      end
+
     rescue Stripe::CardError => e
       Rails.logger.error "Stripe Card Error: #{e.message}"
       redirect_to order_items_path, alert: "Payment failed: #{e.message}"
