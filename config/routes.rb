@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :dashboard, only: :index
     resources :orders, only: %i[index show edit update]
   end
-  resources :order_items, only: %i[index show create destroy]do
+  resources :order_items, only: %i[create destroy]do
   patch :update_quantity, on: :member
   end
   post '/place_order', to: 'orders#place_order', as: :place_order
