@@ -1,14 +1,12 @@
-class Sellers::DashboardController < ApplicationController
-  before_action :authenticate_seller!
-  skip_before_action :authenticate_user!
+module Sellers
+  class DashboardController < ApplicationController
 
-  def index
-    @seller = current_seller
-    @products = @seller.products
-    @total_products = @products.count
-    @total_orders = OrderItem.joins(:product).where(products: { seller_id: @seller.id }).count
-    @total_sales = OrderItem.joins(:product)
-                            .where(products: { seller_id: @seller.id })
-                            .sum("order_items.quantity * products.price")
+    def index
+      @products = current_seller.products
+      @total_products = current_seller.products.count
+      product_count = OrderItem.joins(:product).where(products: { seller_id: current_seller.id })
+      @total_orders = product_count.count
+      @total_sales = product_count.sum("order_items.quantity * products.price")
+    end
   end
 end
