@@ -19,17 +19,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def current_cart
-    if current_user
-      @current_cart ||= current_user.orders.find_or_create_by(status: :cart)
-    else
-      @current_cart ||= Order.find_or_create_by(id: session[:cart_id], status: :cart) do |order|
-        order.guest = true
-      end
-      session[:cart_id] = @current_cart.id
-    end
-  end
-
   private
 
   def layout_by_resource
