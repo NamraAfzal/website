@@ -1,19 +1,10 @@
 class OrderItemsController < ApplicationController
-  before_action :set_order, only: %i[index show create ]
-  before_action :set_order_item, only: [:destroy, :update_quantity]
-
-
-  def index
-    @order_items = @order.order_items || []
-  end
-
-  def show
-    @order_items = current_user.orders.find_by(status: :cart).order_items
-  end
+  before_action :set_order, only: :create
+  before_action :set_order_item, only: %i[destroy update_quantity]
 
   def create
     product = Product.find(params[:product_id])
-    order_item = @order.order_items.find_or_initialize_by(product: product)
+    order_item = @order.order_items.find_or_initialize_by(product:)
 
     if params[:quantity].present?
       order_item.quantity = params[:quantity].to_i
@@ -30,28 +21,16 @@ class OrderItemsController < ApplicationController
 
   def destroy
     @order_item.destroy
-    redirect_to order_items_path
-    respond_to do |format|
-      format.html { redirect_to cart_path, notice: 'Product removed from cart.' }
-      format.turbo_stream
-    end
+    redirect_to order_path, notice: 'Product removed from cart.'
   end
 
   def update_quantity
     if params[:operation] == "increase"
       @order_item.increment!(:quantity)
-      redirect_to order_items_path
-      respond_to do |format|
-        format.html { redirect_to cart_path, notice: 'Cart updated successfully.' }
-        format.turbo_stream
-      end
+      redirect_to order_path, notice: 'Cart updated successfully.'
     elsif params[:operation] == "decrease" && @order_item.quantity > 1
       @order_item.decrement!(:quantity)
-      redirect_to order_items_path
-      respond_to do |format|
-        format.html { redirect_to cart_path, notice: 'Cart updated successfully.' }
-        format.turbo_stream
-      end
+      redirect_to order_path, notice: 'Cart updated successfully.'
     end
   end
 
@@ -60,6 +39,7 @@ class OrderItemsController < ApplicationController
   def set_order
     @order = current_user.orders.find_or_create_by(status: :cart)
   end
+
   def set_order_item
     @order_item = OrderItem.find(params[:id])
   end

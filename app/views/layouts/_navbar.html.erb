@@ -64,7 +64,7 @@
                         <% cart = current_user.orders.find_by(status: :cart) %>
                         <% if cart %>
                         <li >
-                          <%= link_to "Cart (#{cart.order_items.sum(:quantity) || 0})", order_items_path(cart), class: 'text-white hover:text-gray-400' %>
+                          <%= link_to "Cart (#{cart.order_items.sum(:quantity) || 0})", order_path(cart), class: 'text-white hover:text-gray-400' %>
                         </li>
                         <% else %>
                         <li>

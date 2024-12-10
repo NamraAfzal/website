@@ -1,12 +1,16 @@
 class OrdersController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_cart_order, only: :place_order
+  before_action :set_cart_order, only: %i[show payment place_order]
+
   def index
     @orders = current_user.orders.where.not(status: :cart)
   end
 
   def show
-    @order = current_user.orders.find(params[:id])
+    @order_items = @order.order_items
+  end
+
+  def payment
+    @order_items = @order.order_items
   end
 
   def place_order
@@ -19,9 +23,9 @@ class OrdersController < ApplicationController
         shipping_address: current_user.address,
         user_name: current_user.name,
       )
-      redirect_to order_item_path(@order), notice: "Enter your card details."
+      redirect_to payment_order_path(@order), notice: "Enter your card details."
     else
-      redirect_to order_items_path, alert: "Your cart is empty. Cannot place order."
+      redirect_to order_path, alert: "Your cart is empty. Cannot place order."
     end
   end
 
@@ -84,7 +88,7 @@ class OrdersController < ApplicationController
 
   def set_cart_order
     @order = current_user.orders.find_by(status: :cart)
-    redirect_to order_items_path, alert: "No active cart found." unless @order
+    redirect_to order_path, alert: "No active cart found." unless @order
   end
 
   def user_params
