@@ -1,8 +1,20 @@
 class ProductsController < ApplicationController
-  before_action :current_cart, only: :index
+  skip_before_action :authenticate_user!
 
   def index
-    @products = Product.all.page(params[:page]).per(5)
+    @q = Product.ransack(params[:q])
+    @products =
+    if params[:category].present?
+      category = params[:category].to_i
+      @products = @q.result(distinct: true).page(params[:page]).where(category_id: category)
+
+    else
+      @products = @q.result(distinct: true).page(params[:page])
+    end
+  end
+
+  def show
+    @product = Product.find(params[:id])
   end
 
 end

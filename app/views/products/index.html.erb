@@ -1,32 +1,66 @@
+<div class="bg-white shadow-md rounded-lg p-4">
+  <h2 class="text-xl font-semibold mb-4">Filter Products</h2>
+  <%= search_form_for @q, url: products_path, method: :get,  class: "flex space-x-4 items-end" do |f| %>
+
+  <%= f.label :name, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :name_cont, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+  <%= f.label :price_eq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_eq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+  <%= f.label :price_gteq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_gteq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+  
+  <%= f.label :price_lteq, class: "block text-sm font-medium text-gray-700" %>
+  <%= f.search_field :price_lteq, class: "mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+
+
+  <%= f.submit "Search" , class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"%>
+  <%= link_to "Clear", products_path, class: "inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" %>
+  <% end %>
+</div>
 <h1 class="text-2xl font-bold mb-4">Products</h1>
 
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-200">
-      <thead>
-        <tr>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Name</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Category</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Price</th>
-          <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-700">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @products.each do |product| %>
-          <tr class="hover:bg-gray-50">
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium"><%= product.name %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800"><%= product.category&.name || 'N/A' %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">$<%= product.price %></td>
-            <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800">
-              <% if user_signed_in? %>
-                      <%= button_to 'Add to Cart', add_to_cart_order_path(current_cart, product_id: product.id), method: :post, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' %>
+<div class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+  
+    <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <% @products.each do |product| %>
+        <div class="group relative border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white">
+          <div class="overflow-hidden rounded-t-lg bg-gray-100">
+            <% if product.image.attached? %>
+              <%= image_tag product.image.first, alt: product.name, class: "h-48 w-full object-cover object-center" %>
+            <% else %>
+              <div class="h-48 flex items-center justify-center text-gray-500 text-sm">
+                No Image Available
+              </div>
+            <% end %>
+          </div>
+        
+          <div class="p-4">
+            <h3 class="text-sm font-medium text-gray-700 truncate">
+              <a href="#">
+                <span aria-hidden="true" class="absolute inset-0"></span>
+                <%=sort_link(@q, :product.name) %>
+              </a>
+            </h3>
+            <p class="mt-2 text-sm text-gray-500"><%= truncate(product.description, length: 60) %></p>
+            <p class="mt-4 text-lg font-semibold text-gray-900">$<%= product.price %></p>
+            <p class="mt-4 text-lg font-medium text-gray-900">Stock: 
+              <% if product.stock > 0 %>
+                <span style="color: green;"><%= product.stock %> available</span>
               <% else %>
-                <p class="text-red-500">Login to add to cart</p>
-              <% end %> 
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+                <span style="color: red;">Out of Stock</span>
+              <% end %>
+          </div>
+        
+          <div class="absolute inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-75 text-white opacity-0 group-hover:opacity-100 transition-opacity">
+            <%= link_to "View Details", product_path(product), class: "text-center text-sm font-medium px-4 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-md" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
   </div>
-
-<%= paginate @products %>
+  <%= paginate @products %>
+</div>
