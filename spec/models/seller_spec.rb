@@ -14,7 +14,6 @@ RSpec.describe Seller, type: :model do
     it "is not valid without a valid password" do
       subject.password = "short"
       expect(subject).not_to be_valid
-      # expect(subject.errors[:password]).to include("must be 10 characters or less and include at least one special character (!@#$%^&*).")
     end
   end
 end

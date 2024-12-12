@@ -33,12 +33,6 @@ RSpec.describe ApplicationController, type: :controller do
     before do
       @request.env["devise.mapping"] = Devise.mappings[:user]
     end
-
-    # it "permits additional parameters for Devise sign-up" do
-    #   allow(controller).to receive(:devise_controller?).and_return(true)
-    #   expect(controller.devise_parameter_sanitizer).to receive(:permit).with(:sign_up, keys: [:name])
-    #   controller.send(:configure_permitted_parameters)
-    # end
   end
 
   describe "#after_sign_in_path_for" do
@@ -52,17 +46,6 @@ RSpec.describe ApplicationController, type: :controller do
   end
 
   describe "#layout_by_resource" do
-    # context "when using Devise controller for Seller" do
-    #   before do
-    #     allow(controller).to receive(:devise_controller?).and_return(true)
-    #     allow(controller).to receive(:resource_name).and_return(:seller)
-    #   end
-
-    #   it "returns the seller layout" do
-    #     expect(controller.send(:layout_by_resource)).to eq("seller")
-    #   end
-    # end
-
     context "when not using Devise controller" do
       before do
         allow(controller).to receive(:devise_controller?).and_return(false)

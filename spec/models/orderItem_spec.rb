@@ -26,12 +26,10 @@ RSpec.describe OrderItem, type: :model do
     expect(order_item.errors[:quantity]).to include("can't be blank")
   end
 
-  # Test ransackable attributes
   it 'has ransackable attributes' do
     expect(OrderItem.ransackable_attributes).to include('id', 'order_id', 'product_id', 'quantity', 'created_at', 'updated_at')
   end
 
-  # Test ransackable associations
   it 'has ransackable associations' do
     expect(OrderItem.ransackable_associations).to include('order', 'product')
   end
