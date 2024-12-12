@@ -1,13 +1,20 @@
 FactoryBot.define do
   factory :product do
-    name { 'sample product' }
-    price { 100.0 }
+    name { Faker::Commerce.unique.product_name }
+    price { 100 }
     description { 'A sample product description' }
     stock { 10 }
     association :seller
     association :category
-    # after(:create) do |product|
-    #   product.image.attach(io: File.open(Rails.root.join('spec', 'support', 'fixtures', 'image.png')), filename: 'image.png', content_type: 'image/png')
-    # end
   end
 end
+# FactoryBot.define do
+#   factory :product do
+#     name { Faker::Commerce.unique.product_name }
+#     price { Faker::Commerce.price(range: 50.0..500.0) }
+#     description { Faker::Lorem.sentence(word_count: 10) }
+#     stock { Faker::Number.between(from: 1, to: 100) }
+#     association :seller
+#     association :category
+#   end
+# end

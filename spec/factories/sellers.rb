@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :seller do
-    email { "seller@example.com" }
-    password { "password123" }  # Add a password to satisfy validation
-    password_confirmation { "password123" }  # If you have a confirmation field
+    email { Faker::Internet.unique.email }
+    password { "password123" }
+    password_confirmation { "password123" }
     company_name { "Company Inc." }
     store_url { "https://example.com/store" }
   end
