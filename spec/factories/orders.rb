@@ -4,5 +4,7 @@ FactoryBot.define do
     user_id { 1 }
     shipping_address { "lahore" }
     association :user
+    association :order_items
+    association :products
   end
 end
