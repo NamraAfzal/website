@@ -25,7 +25,7 @@ class OrdersController < ApplicationController
       )
       redirect_to payment_order_path(@order), notice: "Enter your card details."
     else
-      redirect_to order_path, alert: "Your cart is empty. Cannot place order."
+      redirect_to order_path(@order), alert: "Your cart is empty. Cannot place order."
     end
   end
 
