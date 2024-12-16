@@ -9,8 +9,8 @@ RSpec.describe ApplicationController, type: :controller do
     end
   end
 
-  let(:user) { User.create(email: "user@example.com", password: "123456@") }
-  let(:seller) { Seller.create(email: "seller@example.com", password: "123456@") }
+  let(:user) { create(:user) }
+  let(:seller) { create(:seller) }
 
   describe "before actions" do
     context "when using a Devise controller" do
