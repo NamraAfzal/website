@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  let(:user) { User.create!(email: 'test@example.com', password: '123456@') }
-  let(:seller) { Seller.create!(email: 'test@example.com', password: '123456@') }
-  let(:category) { Category.create!(name: 'Electronics') }
-  let(:product) { Product.create!(name: 'Laptop', price: 1000.0, description: 'A great laptop', stock: 10, seller: seller, category: category) }
-  let(:order) { Order.new(user: user) }
+  let(:user) { create(:user,email: 'test@example.com') }
+  let(:seller) { create(:seller,email: 'test@example.com') }
+  let(:category) { create(:category) }
+  let(:product) { create(:product,name: 'Laptop', price: 1000.0, description: 'A great laptop', stock: 10, seller: seller, category: category) }
+  let(:order) { create(:order,user: user) }
 
   it 'is valid with a user and a status' do
     order.status = :cart
@@ -56,15 +56,15 @@ RSpec.describe Order, type: :model do
   describe '.for_seller' do
     it 'returns orders for a specific seller' do
       order.save!
-      OrderItem.create!(order: order, product: product, quantity: 2)
+      create(:order_item,order: order, product: product, quantity: 2)
       expect(Order.for_seller(seller)).to include(order)
     end
 
     it 'does not return orders for other sellers' do
-      other_seller = Seller.create!(email: "user@example.com", password: "123456@")
-      other_product = Product.create!(name: 'Phone', price: 500.0, description: 'A great phone', stock: 5, seller: other_seller, category: category)
+      other_seller = create(:seller,email: "user@example.com")
+      other_product = create(:product,name: 'Phone', price: 500.0, description: 'A great phone', stock: 5, seller: other_seller, category: category)
       order.save!
-      OrderItem.create!(order: order, product: other_product, quantity: 1)
+      create(:order_item,order: order, product: other_product, quantity: 1)
       expect(Order.for_seller(seller)).not_to include(order)
     end
   end

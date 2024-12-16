@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:category) { Category.create!(name: 'Electronics') }
-  let(:seller) { Seller.create!(email: "seller@example.com",password: "password123" ) }
-  let(:product) { Product.new(name: 'Laptop', price: 1000.0, description: 'A great laptop', stock: 10, seller: seller, category: category) }
+  let(:category) { create(:category) }
+  let(:seller) { create(:seller) }
+  let(:product) { create(:product,name: 'Laptop', price: 20.0, description: 'A great laptop', stock: 10, seller: seller, category: category) }
   it 'is valid with a name, price, description, stock, seller, and category' do
-    product = Product.new(name: 'Laptop', price: 1000, description: 'A great laptop', stock: 10, seller: seller, category: category)
+    product =  create(:product,name: 'Laptop', price: 20.0, description: 'A great laptop', stock: 10, seller: seller, category: category)
     expect(product).to be_valid
   end
 
@@ -66,13 +66,13 @@ RSpec.describe Product, type: :model do
   end
 
   it 'calculates total sales correctly' do
-    user = User.create!(email: 'test@example.com', password: '123456@')
-    seller = Seller.create!(email: 'test@example.com', password: '123456@')
-    category = Category.create!(name: 'Electronics')
-    product = Product.create!(name: 'Laptop', price: 1000.0, description: 'A great laptop', stock: 10, seller: seller, category: category)
+    user = create(:user,email: 'test@example.com')
+    seller = create(:seller)
+    category = create(:category)
+    product = create(:product,name: 'Laptop', price: 20.0, description: 'A great laptop', stock: 10, seller: seller, category: category)
 
-    order = Order.create!(status: :placed, user: user)
-    order_item = OrderItem.create!(order: order, product: product, quantity: 3)
+    order = create(:order,status: :placed, user: user)
+    order_item = create(:order_item,order: order, product: product, quantity: 3)
 
     expect(product.total_sales).to eq(3)
   end

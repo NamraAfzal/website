@@ -1,9 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe OrderItem, type: :model do
-  let(:order) { Order.create!(status: :placed, user: User.create!(email: 'test@example.com', password: '123456@')) }
-  let(:product) { Product.create!(name: 'Laptop', price: 1000.0, description: 'A great laptop', stock: 10, seller: Seller.create!(email: 'test@example.com', password: '123456@'), category: Category.create!(name: 'Electronics')) }
-  let(:order_item) { OrderItem.new(order: order, product: product, quantity: 2) }
+  let(:order) { create(:order, status: :placed, user: user) }
+  let(:user) { create(:user,email: 'test@example.com') }
+  let(:seller) { create(:seller) }
+  let(:category) { create(:category) }
+  let(:product) { create(:product,name: 'Laptop', price: 20.0, description: 'A great laptop', stock: 10, seller: seller, category: category) }
+  let(:order_item) { create(:order_item, order: order, product: product, quantity: 2) }
 
   it 'is valid with a quantity greater than 0' do
     order_item.quantity = 2

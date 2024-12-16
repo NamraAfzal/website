@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Sellers::ProductsController, type: :controller do
   include Devise::Test::ControllerHelpers
-  let(:seller) { Seller.create!(email: "seller@example.com", password: "123456@") }
+  let(:seller) { create(:seller,email: "seller@example.com") }
   let(:product) { create(:product, seller: seller) }
 
   before do
