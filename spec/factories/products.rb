@@ -6,7 +6,5 @@ FactoryBot.define do
     stock { 10 }
     association :seller
     association :category
-    association :order_items
-    association :orders
   end
 end
