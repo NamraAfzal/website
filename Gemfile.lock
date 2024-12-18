@@ -114,6 +114,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-jwt (0.12.1)
+      devise (~> 4.0)
+      warden-jwt_auth (~> 0.10)
     diff-lcs (1.5.1)
     docile (1.4.1)
     dotenv (3.1.4)
@@ -121,6 +124,16 @@ GEM
       dotenv (= 3.1.4)
       railties (>= 6.1)
     drb (2.2.1)
+    dry-auto_inject (1.0.1)
+      dry-core (~> 1.0)
+      zeitwerk (~> 2.6)
+    dry-configurable (1.2.0)
+      dry-core (~> 1.0, < 2)
+      zeitwerk (~> 2.6)
+    dry-core (1.0.2)
+      concurrent-ruby (~> 1.0)
+      logger
+      zeitwerk (~> 2.6)
     erubi (1.13.0)
     factory_bot (6.5.0)
       activesupport (>= 5.0.0)
@@ -152,6 +165,8 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jwt (2.9.3)
+      base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
       kaminari-actionview (= 1.2.2)
@@ -222,6 +237,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.1.8)
+    rack-cors (2.0.2)
+      rack (>= 2.0.0)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
@@ -339,6 +356,11 @@ GEM
       concurrent-ruby (~> 1.0)
     warden (1.2.9)
       rack (>= 2.0.9)
+    warden-jwt_auth (0.10.1)
+      dry-auto_inject (>= 0.8, < 2)
+      dry-configurable (>= 0.13, < 2)
+      jwt (~> 2.1)
+      warden (~> 1.2)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -365,6 +387,7 @@ DEPENDENCIES
   capybara
   debug
   devise
+  devise-jwt
   dotenv-rails
   factory_bot_rails
   faker
@@ -376,6 +399,7 @@ DEPENDENCIES
   pg (~> 1.1)
   pry-byebug
   puma (>= 5.0)
+  rack-cors
   rails (~> 7.1.5)
   rails-controller-testing
   ransack
