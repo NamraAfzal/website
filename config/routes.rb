@@ -22,5 +22,16 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  namespace :api do
+    namespace :users do
+      devise_scope :user do
+        post 'login', to: 'sessions#create', as: :login
+        delete 'logout', to: 'sessions#destroy', as: :logout
+      end
+    end
+
+    resources :users
+  end
+
   root to: "home#index"
 end
