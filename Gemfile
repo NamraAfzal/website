@@ -46,7 +46,7 @@ gem 'kaminari'
 gem 'stripe'
 gem 'dotenv-rails'
 gem 'ransack'
-
+gem 'devise-jwt'
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
