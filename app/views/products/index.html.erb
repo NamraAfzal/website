@@ -30,7 +30,7 @@
         <div class="group relative border border-gray-200 rounded-lg shadow-md hover:shadow-lg transition-shadow bg-white">
           <div class="overflow-hidden rounded-t-lg bg-gray-100">
             <% if product.image.attached? %>
-              <%= image_tag product.image.first, alt: product.name, class: "h-48 w-full object-cover object-center" %>
+              <%= image_tag product.image, alt: product.name, class: "h-48 w-full object-cover object-center" %>
             <% else %>
               <div class="h-48 flex items-center justify-center text-gray-500 text-sm">
                 No Image Available
