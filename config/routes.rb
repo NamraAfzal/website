@@ -29,8 +29,15 @@ Rails.application.routes.draw do
         delete 'logout', to: 'sessions#destroy', as: :logout
       end
     end
-
     resources :users
+
+    namespace :sellers do
+      devise_scope :seller do
+        post 'login', to: 'sessions#create', as: :login
+        delete 'logout', to: 'sessions#destroy', as: :logout
+      end
+    end
+    resources :sellers
   end
 
   root to: "home#index"
