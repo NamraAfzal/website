@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       end
     end
     resources :sellers
+    resources :products
+    res
   end
 
   root to: "home#index"
