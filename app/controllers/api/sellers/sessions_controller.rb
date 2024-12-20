@@ -1,5 +1,5 @@
 module Api
-  module Users
+  module Sellers
     class SessionsController < Devise::SessionsController
       respond_to :json
 
@@ -19,7 +19,7 @@ module Api
       end
 
       def destroy
-        if current_user
+        if current_seller
           sign_out(resource_name)
           render json: { message: 'Logged out successfully' }, status: :ok
         else
