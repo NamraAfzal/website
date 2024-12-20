@@ -1,8 +1,11 @@
 class Seller < ApplicationRecord
+  include Devise::JWT::RevocationStrategies::JTIMatcher
   has_many :products
   has_many :orders, through: :products
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :jwt_authenticatable, jwt_revocation_strategy: self
+
 
   def total_orders
     products.joins(:order_items).distinct.count('order_items.order_id')
