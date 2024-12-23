@@ -45,9 +45,12 @@ Rails.application.routes.draw do
       end
     end
     resources :orders do
-      post :checkout
+      member do
+        post :place_order
+        post :checkout
+        get :payment
+      end
     end
-
   end
 
   root to: "home#index"
