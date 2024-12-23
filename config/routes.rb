@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       end
     end
     resources :users
+    resources :products, only: %i[index show]
 
     namespace :sellers do
       devise_scope :seller do
