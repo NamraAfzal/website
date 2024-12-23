@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     end
     resources :sellers
     resources :products
+    resources :dashboard, only: :index
     resources :order_items do
       member do
         patch :update_quantity
