@@ -1,4 +1,4 @@
-class Api::OrdersController < Api::Users::BaseController  
+class Api::OrdersController < Api::Users::BaseController
   before_action :set_cart_order, only: %i[show payment place_order checkout]
 
   def index
@@ -23,9 +23,8 @@ class Api::OrdersController < Api::Users::BaseController
       @order.update(
         shipping_address: current_user.address,
         user_name: current_user.name,
-        status: :placed
       )
-      render json: { message: "Order placed successfully. Proceed to payment.", order: @order }, status: :ok
+      render json: { message: "Order is ready. Proceed to payment.", order: @order }, status: :ok
     else
       render json: { error: "Your cart is empty. Cannot place the order." }, status: :unprocessable_entity
     end
