@@ -39,7 +39,11 @@ Rails.application.routes.draw do
     end
     resources :sellers
     resources :products
-    resources :order_item
+    resources :order_items do
+      member do
+        patch :update_quantity
+      end
+    end
     resources :orders do
       post :checkout
     end
