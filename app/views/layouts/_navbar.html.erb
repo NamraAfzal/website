@@ -77,20 +77,20 @@
             </div>
           </div>          
       </div>
-      <div class=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div class=" inset-y-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <% if user_signed_in? %>
-        <div>
-          <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400'  %>
-          <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
-        </div>
+          <div>
+            <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400'  %>
+            <i class="fa-solid fa-right-from-bracket" style="color : #74C0FC;"></i>
+          </div>
         <% elsif seller_signed_in? %>
-        <div>
-          <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
-          <%= button_to 'Log Out', destroy_seller_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400' %>
-        </div>
+          <div>
+            <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
+            <%= button_to 'Log Out', destroy_seller_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400' %>
+          </div>
         <% else %>
         <%= link_to 'Log In', new_user_session_path, class: 'text-white hover:text-gray-400' %>
         <% end %>
-          </div>
+      </div>
     </div>
 </nav>
