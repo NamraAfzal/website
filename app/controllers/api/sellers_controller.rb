@@ -8,7 +8,7 @@ class Api::SellersController < Api::Sellers::BaseController
   def create
     @seller = Seller.new(seller_params)
     if @seller.save
-      render json: { message: 'User created successfully', seller: @seller }, status: :created
+      render json: { message: 'Seller created successfully', seller: @seller }, status: :created
     else
       render json: { errors: @seller.errors.full_messages }, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Api::SellersController < Api::Sellers::BaseController
   def update
     @seller = Seller.find(params[:id])
       if @seller.update(seller_params)
-        render json: { message: 'User updated successfully', seller: @seller }
+        render json: { message: 'Seller updated successfully', seller: @seller }
       else
         render json: { errors: @seller.errors.full_messages }, status: :unprocessable_entity
       end
@@ -31,7 +31,7 @@ class Api::SellersController < Api::Sellers::BaseController
   def destroy
     @seller = Seller.find(params[:id])
     @seller.destroy
-    render json: { message: 'User deleted successfully' }
+    render json: { message: 'Seller deleted successfully' }
   end
 
   private

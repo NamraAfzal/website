@@ -8,7 +8,7 @@ class Api::ProductsController < Api::Sellers::BaseController
   def create
     @product = Product.new(product_params)
     if @product.save
-      render json: { message: 'User created successfully', product: @product }, status: :created
+      render json: { message: 'Product created successfully', product: @product }, status: :created
     else
       render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Api::ProductsController < Api::Sellers::BaseController
   def update
     @product = Product.find(params[:id])
       if @product.update(product_params)
-        render json: { message: 'User updated successfully', product: @product }
+        render json: { message: 'Product updated successfully', product: @product }
       else
         render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
       end
@@ -31,7 +31,7 @@ class Api::ProductsController < Api::Sellers::BaseController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-    render json: { message: 'User deleted successfully' }
+    render json: { message: 'Product deleted successfully' }
   end
 
   private
