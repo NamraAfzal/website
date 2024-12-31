@@ -29,7 +29,6 @@ Rails.application.routes.draw do
         delete 'logout', to: 'sessions#destroy', as: :logout
       end
     end
-    resources :users
     resources :products, only: %i[index show]
 
     namespace :sellers do
@@ -39,7 +38,6 @@ Rails.application.routes.draw do
       end
       resources :orders
     end
-    resources :sellers
     resources :products
     resources :dashboard, only: :index
     resources :order_items do
