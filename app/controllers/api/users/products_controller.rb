@@ -2,16 +2,9 @@ module Api
   module Users
     class ProductsController < BaseController
       def index
-        q = Product.ransack(params[:q])
-        products =
-          if params[:category].present?
-            category = params[:category].to_i
-            q.result(distinct: true).where(category_id: category).page(params[:page])
-          else
-            q.result(distinct: true).page(params[:page])
-          end
+        products = Product.ransack(params[:q]).result(distinct: true).page(params[:page])
 
-        render json: products, serializer: ProductSerializer, status: :ok
+        render json: products, status: :ok
       end
 
       def show

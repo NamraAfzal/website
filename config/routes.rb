@@ -23,13 +23,17 @@ Rails.application.routes.draw do
   }
 
   namespace :api do
+    products_routes = -> do
+      resources :products, only: %i[index show]
+    end
     namespace :users do
       devise_scope :user do
         post 'login', to: 'sessions#create', as: :login
         delete 'logout', to: 'sessions#destroy', as: :logout
       end
+
+      instance_exec(&products_routes)
     end
-    resources :products, only: %i[index show]
 
     namespace :sellers do
       devise_scope :seller do
