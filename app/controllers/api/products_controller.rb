@@ -33,6 +33,7 @@ class Api::ProductsController < Api::Sellers::BaseController
   end
 
   private
+
   def set_product
     @product = Product.find(params[:id])
   end
