@@ -26,9 +26,7 @@
   <div class="pt-6">
     <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
       <% if @product.image.attached? %>
-        <% @product.image.find_each do |image| %>
-          <%= image_tag image, alt: @product.name %>
-        <% end %>
+          <%= image_tag @product.image, alt: @product.name, class: "h-48 w-full object-cover object-center" %>
       <% else %>
           <p>No images available for this product.</p>
       <% end %>
@@ -128,7 +126,7 @@
               +
             </button>
           </div>
-          <% if @product.stock > 1 %>
+          <% if @product.stock >= 1 %>
               <% if user_signed_in? %>
                   <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                     Add to Cart

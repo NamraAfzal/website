@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   paginates_per 40
-  has_many_attached :image
+  has_one_attached :image
   belongs_to :seller
   belongs_to :category
   has_many :order_items
@@ -11,7 +11,7 @@ class Product < ApplicationRecord
   validates :stock, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[id name price created_at updated_at]
+    %w[id name price created_at updated_at category_id]
   end
 
   def self.ransackable_associations(auth_object = nil)

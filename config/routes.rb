@@ -22,5 +22,41 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
+  namespace :api do
+    products_routes = -> do
+      resources :products, only: %i[index show]
+    end
+    namespace :users do
+      devise_scope :user do
+        post 'login', to: 'sessions#create', as: :login
+        delete 'logout', to: 'sessions#destroy', as: :logout
+      end
+
+      instance_exec(&products_routes)
+    end
+
+    namespace :sellers do
+      devise_scope :seller do
+        post 'login', to: 'sessions#create', as: :login
+        delete 'logout', to: 'sessions#destroy', as: :logout
+      end
+      resources :orders
+    end
+    resources :products
+    resources :dashboard, only: :index
+    resources :order_items do
+      member do
+        patch :update_quantity
+      end
+    end
+    resources :orders do
+      member do
+        post :place_order
+        post :checkout
+        get :payment
+      end
+    end
+  end
+
   root to: "home#index"
 end

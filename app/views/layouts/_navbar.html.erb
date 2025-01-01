@@ -63,34 +63,35 @@
                         <% if current_user %>
                         <% cart = current_user.orders.find_by(status: :cart) %>
                         <% if cart %>
-                        <li >
+                        <li>
+                          <i class="fa-solid fa-cart-shopping" style="color: #74C0FC;"></i>
                           <%= link_to "Cart (#{cart.order_items.sum(:quantity) || 0})", order_path(cart), class: 'text-white hover:text-gray-400' %>
                         </li>
                         <% else %>
                         <li>
-                          <%= link_to "Cart (0)", "#", class: 'text-white hover:text-gray-400' %>
                           <i class="fa-solid fa-cart-shopping" style="color: #74C0FC;"></i>
+                          <%= link_to "Cart (0)", "#", class: 'text-white hover:text-gray-400' %>
                         </li>
                         <% end %>
                         <% end %>
                 </div>
             </div>
           </div>          
-      </div>
-      <div class=" inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-        <% if user_signed_in? %>
-        <div>
-          <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400'  %>
-          <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
-        </div>
-        <% elsif seller_signed_in? %>
-        <div>
-          <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
-          <%= button_to 'Log Out', destroy_seller_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400' %>
-        </div>
-        <% else %>
-        <%= link_to 'Log In', new_user_session_path, class: 'text-white hover:text-gray-400' %>
-        <% end %>
+          <div class=" sm:ml-6 sm:block flex items-center ">
+            <% if user_signed_in? %>
+            <div class="flex items-center justify-between space-x-2">
+              <%= button_to 'Logout', destroy_user_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400'  %>
+              <i class="fa-solid fa-right-from-bracket" style="color : #74C0FC;"></i>
+            </div>
+            <% elsif seller_signed_in? %>
+            <div class="flex items-center justify-between space-x-2">
+              <%= button_to 'Log Out', destroy_seller_session_path, method: :delete, form: { turbolink: false }, class: 'text-white hover:text-gray-400' %>
+              <i class="fa-solid fa-right-from-bracket" style="color: #74C0FC;"></i>
+            </div>
+            <% else %>
+            <%= link_to 'Log In', new_user_session_path, class: 'text-white hover:text-gray-400' %>
+            <% end %>
           </div>
+      </div>
     </div>
 </nav>

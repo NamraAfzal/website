@@ -1,7 +1,6 @@
 <h2 class="text-2xl font-semibold mb-6">Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" }) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
 
   <div class="mb-4">
     <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
@@ -31,5 +30,3 @@
     <%= link_to 'Sign Up as Seller', new_seller_registration_path, class: 'text-blue-500 hover:text-blue-700' %>
   </div>
 <% end %>
-
-<%#= render "users/shared/links", class: "text-center mt-4 text-sm text-gray-600" %>
