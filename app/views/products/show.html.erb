@@ -26,7 +26,7 @@
   <div class="pt-6">
     <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
       <% if @product.image.attached? %>
-          <%= image_tag @product.image, alt: @product.name, class: "h-48 w-full object-cover object-center" %>
+            <%= image_tag url_for(@product.image), alt: @product.name, class: "h-48 w-full object-cover object-center" %>
       <% else %>
           <p>No images available for this product.</p>
       <% end %>
