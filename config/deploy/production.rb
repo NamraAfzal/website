@@ -44,7 +44,7 @@ server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
 set :ssh_options, {
   keys: %w(/home/xprolabs/Documents/learning/e commerece/myapp/CW-test.pem),
   forward_agent: false,
-  auth_methods: %w(publickey   password)
+  auth_methods: %w(publi  ckey password)
 }
 #
 # The server-based syntax can be used to override options:
