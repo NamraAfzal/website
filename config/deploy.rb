@@ -8,8 +8,16 @@ set :repo_url, "git@github.com:NamraAfzal/website.git"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/deploy/#{fetch :application}"
+# set :deploy_to, "/home/deploy/#{fetch :application}"
+set :deploy_to, "/var/www/my_app"
+set :pty, true
+set :ssh_options, {
+  keys: %w(CW-test.pem),
+  forward_agent: false,
+  auth_methods: %w(publickey password)
+}
 
+set :format, :pretty
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

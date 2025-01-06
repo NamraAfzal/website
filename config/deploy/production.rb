@@ -5,7 +5,7 @@
 
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
-server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
+# server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
 
 
 
@@ -41,10 +41,20 @@ server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
 #
 # Global options
 # --------------
+# set :ssh_options, {
+#   keys: %w(/home/xprolabs/Documents/learning/e commerece/myapp/CW-test.pem),
+#   forward_agent: false,
+#   auth_methods: %w(publickey password)
+# }
+# role :app, %w{ubuntu@{IP/Host}}
+
+server '51.20.55.43', user: 'ubuntu', roles: %w{web app}
+
 set :ssh_options, {
-  keys: %w(/home/xprolabs/Documents/learning/e commerece/myapp/CW-test.pem),
-  forward_agent: false,
-  auth_methods: %w(publickey password)
+keys: %w(/home/xprolabs/Documents/learning/e commerece/myapp/CW-test.pem),
+forward_agent: false,
+user: 'user'
+# auth_methods: %w(password)
 }
 #
 # The server-based syntax can be used to override options:
