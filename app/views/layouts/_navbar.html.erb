@@ -30,6 +30,10 @@
                       <i class="fa-solid fa-gauge" style="color: #74C0FC;"></i>
                       <%= link_to 'Dashboard', sellers_dashboard_index_path, class: 'text-white hover:text-gray-400' %>
                     </div>
+                    <div class="flex items-center justify-between space-x-2">
+                      <i class="fa-solid fa-arrow-up-from-bracket" style="color: #74C0FC;"></i>
+                      <%= button_to 'Export Orders to CSV', sellers_downloads_path, method: :post, class: 'text-white hover:text-gray-400' %>
+                    </div>        
                     <div>
                       <i class="fa-regular fa-square-plus" style="color: #74C0FC;"></i>
                       <%= link_to 'Add New Product', new_sellers_product_path, class: "text-white hover:text-gray-400" %>
