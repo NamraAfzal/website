@@ -2,6 +2,7 @@ class Seller < ApplicationRecord
   include Devise::JWT::RevocationStrategies::JTIMatcher
   has_many :products
   has_many :orders, through: :products
+  has_many :downloads
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: self
