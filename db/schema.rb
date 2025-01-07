@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_12_24_125514) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_07_063049) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_24_125514) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "downloads", force: :cascade do |t|
+    t.bigint "seller_id", null: false
+    t.string "status"
+    t.string "file_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["seller_id"], name: "index_downloads_on_seller_id"
   end
 
   create_table "jwt_denylists", force: :cascade do |t|
@@ -145,6 +154,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_12_24_125514) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
   add_foreign_key "carts", "users"
+  add_foreign_key "downloads", "sellers"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
