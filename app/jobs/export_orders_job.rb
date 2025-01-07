@@ -1,5 +1,4 @@
 require 'csv'
-
 class ExportOrdersJob < ApplicationJob
   queue_as :default
 
@@ -27,7 +26,6 @@ class ExportOrdersJob < ApplicationJob
       region: 'us-east-1',
       credentials: Aws::Credentials.new(ENV['ACCESS_KEY'], ENV['SECRET_ACCESS_KEY'])
     )
-    byebug
     bucket = s3_client.bucket('my-website2-bucket')
     file_name = "exports/seller_#{seller_id}_orders_#{Time.now.to_i}.csv"
     obj = bucket.object(file_name)
