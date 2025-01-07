@@ -8,6 +8,7 @@
 # server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
 
 
+server '51.20.55.43', user: 'ubuntu', roles: %w{app db web}
 
 # role-based syntax
 # ==================
@@ -51,7 +52,7 @@
 server '51.20.55.43', user: 'ubuntu', roles: %w{web app}
 
 set :ssh_options, {
-keys: %w(/home/xprolabs/Documents/learning/e commerece/myapp/CW-test.pem),
+keys: %w(CW-test.pem),
 forward_agent: false,
 user: 'user'
 # auth_methods: %w(password)
