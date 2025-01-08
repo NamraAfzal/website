@@ -1,43 +1,73 @@
 <%= render 'sellers/shared/partial' %>
 <div class="bg-white" style="padding-left: 117px;">
-  <div class="container mx-auto p-4">
-    <h2 class="text-2xl font-semibold mb-4">Your CSV Downloads</h2>
-  </div>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+  <div class="container mx-auto p-4">    
+    <h1 class="text-2xl font-semibold mb-4">Your Downloads</h1>
+    
+    <h2 class="text-l font-semibold mb-4">Orders CSV Exports</h2>
     <table class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead class="text-xl text-gray-700 font-bold uppercase dark:text-gray-400">
+      <thead class="text-l text-gray-700 font-bold uppercase dark:text-gray-400">
         <tr>
           <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">File Name</th>
-          <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Status</th>
-          <th scope="col" class="px-6 py-3">Requested At</th>
-          <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Download File</th>
+          <th scope="col" class="px-6 py-3">Status</th>
+          <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Created At</th>
+          <th scope="col" class="px-6 py-3">Download Link</th>
         </tr>
       </thead>
       <tbody>
-        <% @downloads.find_each do |download| %>
-          <tr class="border-b border-gray-200 dark:border-gray-700">
-            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-              <%= "#{download.id}_orders_#{download.created_at.strftime('%Y%m%d_%H%M%S')}.csv" %>
-            </td>
-            <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800">
-              <span class="<%= download.status == 'completed' ? 'bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300' : 'bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300' %>">
-                <%= download.status.capitalize %>
-              </span>
-            </td>
-            <td class="px-6 py-4">
-              <%= download.created_at.strftime("%d %b %Y %H:%M") %>
-            </td>
-            <td class="px-6 py-4">
-              <% if download.status == 'completed' %>
-                <i class="fa-solid fa-download"></i>
-                <%= link_to 'Download', download.file_url, target: '_blank', class: "text-blue-500 hover:underline" %>
-              <% else %>
-                <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">N/A</span>
-              <% end %>
-            </td>
-          </tr>
+        <% @orders_downloads.each do |download| %>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+          <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800"><%= "#{download.id}_orders_#{download.created_at.strftime('%Y%m%d_%H%M%S')}.csv" %></td>
+          <td scope="col" class="px-6 py-3">
+            <span class="<%= download.status == 'completed' ? 'bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300' : 'bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300' %>">
+              <%= download.status.capitalize %>
+            </span>
+          </td>
+          <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800"><%= download.created_at.strftime("%d %b %Y %H:%M") %></td>
+          <td scope="col" class="px-6 py-3">
+            <% if download.status == 'completed' %>
+            <i class="fa-solid fa-download"></i>
+            <%= link_to 'Download', download.file_url, target: '_blank', class: "text-blue-500 hover:underline" %>
+            <% else %>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">N/A</span>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <h2 class="text-l font-semibold mb-4">Products CSV Exports</h2>
+    <table class="table w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-l text-gray-700 font-bold uppercase dark:text-gray-400">
+        <tr>
+          <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">File Name</th>
+          <th scope="col" class="px-6 py-3">Status</th>
+          <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800">Created At</th>
+          <th scope="col" class="px-6 py-3">Download Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products_downloads.each do |download| %>
+        <tr class="border-b border-gray-200 dark:border-gray-700">
+          <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800"><%= "#{download.id}_products_#{download.created_at.strftime('%Y%m%d_%H%M%S')}.csv" %></td>
+          <td scope="col" class="px-6 py-3">
+            <span class="<%= download.status == 'completed' ? 'bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300' : 'bg-gray-100 text-gray-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-gray-700 dark:text-gray-300' %>">
+              <%= download.status.capitalize %>
+            </span>
+          </td>
+          <td class="px-6 py-4 bg-gray-50 dark:bg-gray-800"><%= download.created_at.strftime("%d %b %Y %H:%M") %></td>
+          <td scope="col" class="px-6 py-3">
+            <% if download.status == 'completed' %>
+            <i class="fa-solid fa-download"></i>
+            <%= link_to 'Download', download.file_url, target: '_blank', class: "text-blue-500 hover:underline" %>
+            <% else %>
+            <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300">N/A</span>
+            <% end %>
+          </td>
+        </tr>
         <% end %>
       </tbody>
     </table>
   </div>
 </div>
+  
