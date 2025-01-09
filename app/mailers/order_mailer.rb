@@ -6,7 +6,7 @@ class OrderMailer < ApplicationMailer
 
     pdf = WickedPdf.new.pdf_from_string(
       ApplicationController.render(
-        template: 'orders/invoice',
+        template: 'order_mailer/invoice',
         layout: 'pdf',
         locals: { order: @order }
       )
