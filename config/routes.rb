@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     member do
       post :checkout
       get '/payment', to: 'orders#payment', as: :payment
+      get :invoice
     end
   end
   get 'contact', to: 'pages#contact', as: 'contact'
