@@ -4,12 +4,11 @@ class OrderMailer < ApplicationMailer
   def user_confirmation(order)
     @order = order
 
-    # Generate PDF
     pdf = WickedPdf.new.pdf_from_string(
       ApplicationController.render(
         template: 'orders/invoice',
-        layout: 'pdf', # Ensure the PDF layout is used
-        locals: { order: @order } # Pass necessary variables to the template
+        layout: 'pdf',
+        locals: { order: @order }
       )
     )
 
