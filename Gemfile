@@ -57,7 +57,8 @@ gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
 
 gem "font-awesome-sass"
 gem "aws-sdk-s3", require: false
-
+gem 'wicked_pdf', '~> 2.1'
+gem 'wkhtmltopdf-binary', '~> 0.12.6.8'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
