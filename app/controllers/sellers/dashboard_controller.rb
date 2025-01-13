@@ -7,7 +7,6 @@ module Sellers
       product_count = OrderItem.joins(:product).where(products: { seller_id: current_seller.id })
       @total_orders = product_count.count
       @total_sales = product_count.sum("order_items.quantity * products.price")
-      @downloads = current_seller.downloads.order(created_at: :desc)
     end
   end
 end
