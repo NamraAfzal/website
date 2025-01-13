@@ -1,8 +1,8 @@
 <h1>Thank you for your order!</h1>
-<p>Order ID: <%= @order&.id %></p>
+<p>Order ID: <%= order&.id %></p>
 <p>You ordered:</p>
 <ul>
-  <% @order&.order_items&.each do |item| %>
+  <% order&.order_items&.each do |item| %>
     <% if item.product.present? %>
       <li><%= item.product.name %> - Quantity: <%= item.quantity %></li>
     <% else %>
@@ -10,5 +10,5 @@
     <% end %>
   <% end %>
 </ul>
-<p>Total: $<%= @order&.amount %></p>
+<p>Total: $<%= order&.amount %></p>
 <p>We will notify you when your order is shipped.</p>

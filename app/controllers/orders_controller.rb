@@ -60,13 +60,13 @@ class OrdersController < ApplicationController
           end
         end
       end
+
       if @order.save
         OrderMailer.user_confirmation(@order).deliver_later
 
         @order.order_items.includes(:product).map(&:product).map(&:seller).uniq.each do |seller|
           OrderMailer.seller_notification(@order, seller).deliver_later
         end
-
         redirect_to orders_path, notice: 'Payment has been successfully completed.'
       else
         render :new, alert: 'Failed to place the order.'
@@ -81,6 +81,18 @@ class OrdersController < ApplicationController
     rescue StandardError => e
       Rails.logger.error "Unexpected Error: #{e.message}"
       redirect_to order_items_path, alert: "An unexpected error occurred. Please try again."
+    end
+  end
+  def invoice
+    @order = Order.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Invoice_#{@order.id}",
+               template: 'orders/invoice',
+               formats: [:html],
+               layout: 'pdf'
+      end
     end
   end
 

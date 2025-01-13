@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
   namespace :sellers do
     resources :products
+    resources :downloads, only: %i[index create]
     resources :dashboard, only: :index
     resources :orders, only: %i[index show edit update]
   end
@@ -13,6 +14,7 @@ Rails.application.routes.draw do
     member do
       post :checkout
       get '/payment', to: 'orders#payment', as: :payment
+      get :invoice
     end
   end
   get 'contact', to: 'pages#contact', as: 'contact'

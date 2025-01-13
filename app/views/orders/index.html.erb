@@ -9,6 +9,7 @@
         <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">shipping Address</th>
         <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Order Items</th>
         <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Total</th>
+        <th class="px-6 py-3 border-b border-gray-200 bg-gray-100 text-left text-1xl font-bold text-gray-700">Download Invoice</th>
       </tr>
     </thead>
     <tbody>
@@ -47,8 +48,12 @@
           <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
             <%= number_to_currency(order.order_items.sum { |item| item.product.price * item.quantity }) %>
           </td>
+          <td class="px-6 py-4 border-b border-gray-200 text-sm text-gray-800 font-medium">
+            <%= link_to 'Download Invoice', invoice_order_path(order, format: :pdf), target: '_blank' %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+
