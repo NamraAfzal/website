@@ -96,7 +96,6 @@ class OrdersController < ApplicationController
     end
   end
 
-
   private
 
   def set_cart_order
