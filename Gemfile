@@ -45,7 +45,6 @@ gem 'devise'
 gem 'kaminari'
 gem 'stripe'
 gem 'dotenv-rails'
-gem 'ransack'
 gem 'devise-jwt'
 gem 'active_model_serializers'
 # Reduces boot times through caching; required in config/boot.rb
@@ -74,7 +73,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "letter_opener"
+  gem 'letter_opener_web'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
