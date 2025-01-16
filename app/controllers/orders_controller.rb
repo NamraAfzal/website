@@ -83,6 +83,7 @@ class OrdersController < ApplicationController
       redirect_to order_items_path, alert: "An unexpected error occurred. Please try again."
     end
   end
+
   def invoice
     @order = Order.find(params[:id])
     respond_to do |format|
