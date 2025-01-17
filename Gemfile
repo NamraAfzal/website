@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.1.5"
+gem "rails", "~> 8.0"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -45,7 +45,6 @@ gem 'devise'
 gem 'kaminari'
 gem 'stripe'
 gem 'dotenv-rails'
-gem 'ransack'
 gem 'devise-jwt'
 gem 'active_model_serializers'
 # Reduces boot times through caching; required in config/boot.rb
@@ -54,11 +53,12 @@ gem 'capistrano', '~> 3.11'
 gem 'capistrano-rails', '~> 1.4'
 gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4'
+gem 'ransack'
 
 gem "font-awesome-sass"
 gem "aws-sdk-s3", require: false
-gem 'wicked_pdf', '~> 2.1'
 gem 'wkhtmltopdf-binary', '~> 0.12.6.8'
+gem 'wicked_pdf'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
@@ -74,7 +74,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem "letter_opener"
+  gem 'letter_opener_web'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
