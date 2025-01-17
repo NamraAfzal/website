@@ -58,6 +58,7 @@ gem 'ransack'
 gem "font-awesome-sass"
 gem "aws-sdk-s3", require: false
 gem 'wkhtmltopdf-binary', '~> 0.12.6.8'
+gem 'wicked_pdf'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 gem "image_processing", "~> 1.2"
 
