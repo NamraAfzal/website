@@ -9,10 +9,10 @@ set :repo_url, "git@github.com:NamraAfzal/website.git"
 
 # Default deploy_to directory is /var/www/my_app_name
 # set :deploy_to, "/home/deploy/#{fetch :application}"
-set :deploy_to, "/var/www/my_app"
+set :deploy_to, "/home/ubuntu/websites"
 set :pty, true
 set :ssh_options, {
-  keys: %w(CW-test.pem),
+  keys: %w[~/.ssh/task_mangement.pem],
   forward_agent: false,
   auth_methods: %w(publickey password)
 }

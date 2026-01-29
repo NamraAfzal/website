@@ -8,7 +8,7 @@
 # server "51.20.55.43", user: "ubuntu", roles: %w{app db web}
 
 
-server '51.20.55.43', user: 'ubuntu', roles: %w{app db web}
+server '3.226.251.254', user: 'ubuntu', roles: %w{app db web}
 
 # role-based syntax
 # ==================
@@ -49,10 +49,10 @@ server '51.20.55.43', user: 'ubuntu', roles: %w{app db web}
 # }
 # role :app, %w{ubuntu@{IP/Host}}
 
-server '51.20.55.43', user: 'ubuntu', roles: %w{web app}
+server '3.226.251.254', user: 'ubuntu', roles: %w{web app}
 
 set :ssh_options, {
-keys: %w(CW-test.pem),
+keys: %w[~/.ssh/task_mangement.pem],
 forward_agent: false,
 user: 'user'
 # auth_methods: %w(password)
