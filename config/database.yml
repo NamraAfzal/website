@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: myapp_production
+  database: myapp
   username: ubuntu
   password: xprolabs
