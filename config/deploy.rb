@@ -4,7 +4,9 @@ lock "~> 3.19.2"
 set :application, "myapp"
 set :repo_url, "git@github.com:NamraAfzal/website.git"
 
-# Default branch is :master
+# Default branch is :main
+set :branch, "main"
+
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
@@ -30,7 +32,7 @@ set :format, :pretty
 # set :pty, true
 
 # Default value for :linked_files is []
-# append :linked_files, "config/database.yml", 'config/master.key'
+append :linked_files, "config/database.yml", 'config/master.key'
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor", "storage"
