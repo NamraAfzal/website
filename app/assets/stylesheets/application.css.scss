@@ -10,7 +10,7 @@
   position: relative;
   bottom:128px;
   left: 1168px;
-}  
+} 
 
 .image {
   width: 1547px;
@@ -29,11 +29,13 @@
   max-width: 38%;
   width: 367px;
 }
+
 .column {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
 }
+
 .second-column {
   flex: 1; 
   justify-content: center;
@@ -42,7 +44,7 @@
   padding-right: 270px;
   padding-bottom: 166px;
 }
+
 .max-w-sm {
   max-width: 26rem;
 }
-
